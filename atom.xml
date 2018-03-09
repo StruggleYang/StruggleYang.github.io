@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://git66.com/"/>
-  <updated>2018-03-06T15:15:56.499Z</updated>
+  <updated>2018-03-09T01:13:51.000Z</updated>
   <id>http://git66.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DDD-领域事件及事件总线在today中台的使用实践</title>
+    <link href="http://git66.com/2018/03/08/DDD-event-bus/"/>
+    <id>http://git66.com/2018/03/08/DDD-event-bus/</id>
+    <published>2018-03-08T13:53:49.000Z</published>
+    <updated>2018-03-09T01:13:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是DDD"><a href="#什么是DDD" class="headerlink" title="什么是DDD"></a>什么是DDD</h2><h2 id="为什么要引入事件"><a href="#为什么要引入事件" class="headerlink" title="为什么要引入事件"></a>为什么要引入事件</h2><h2 id="领域内消费事件与跨领域消费事件的异同"><a href="#领域内消费事件与跨领域消费事件的异同" class="headerlink" title="领域内消费事件与跨领域消费事件的异同"></a>领域内消费事件与跨领域消费事件的异同</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;什么是DDD&quot;&gt;&lt;a href=&quot;#什么是DDD&quot; class=&quot;headerlink&quot; title=&quot;什么是DDD&quot;&gt;&lt;/a&gt;什么是DDD&lt;/h2&gt;&lt;h2 id=&quot;为什么要引入事件&quot;&gt;&lt;a href=&quot;#为什么要引入事件&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+    
+      <category term="DDD" scheme="http://git66.com/tags/DDD/"/>
+    
+      <category term="领域驱动设计" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
+    
+      <category term="eventbus" scheme="http://git66.com/tags/eventbus/"/>
+    
+  </entry>
   
   <entry>
     <title>【scala】函数的演变过程,函数式的优点</title>
