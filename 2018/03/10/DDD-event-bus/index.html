@@ -13,13 +13,13 @@
 <meta name="keywords" content="DDD,领域驱动设计,领域事件,eventbus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DDD-领域事件及事件总线使用实践">
-<meta property="og:url" content="http://git66.com/2018/03/08/DDD-event-bus/index.html">
+<meta property="og:url" content="http://git66.com/2018/03/10/DDD-event-bus/index.html">
 <meta property="og:site_name" content="StruggleYang">
 <meta property="og:description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设计是没有任何价值的！ 比如在Tod">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/5321758.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/56127281.jpg">
-<meta property="og:updated_time" content="2018-03-10T15:47:09.088Z">
+<meta property="og:updated_time" content="2018-03-10T15:49:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDD-领域事件及事件总线使用实践">
 <meta name="twitter:description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设计是没有任何价值的！ 比如在Tod">
@@ -189,8 +189,8 @@
   
 
         
-        <a href="/2018/03/08/DDD-event-bus/" class="archive-article-date">
-  	<time datetime="2018-03-08T13:53:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-08</time>
+        <a href="/2018/03/10/DDD-event-bus/" class="archive-article-date">
+  	<time datetime="2018-03-10T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
 </a>
         
       </header>
@@ -336,7 +336,7 @@
         </div>
         <div class="signature" style="padding: 15px 20px;margin-top: 10px;border-left: 5px solid #657b83;background: #f6f6f6;">
         本文作者：StruggleYang</br>
-        原文链接：http://git66.com/2018/03/08/DDD-event-bus/</br>
+        原文链接：http://git66.com/2018/03/10/DDD-event-bus/</br>
         版权归作者所有，转载请注明出处
         </div>
       
@@ -417,7 +417,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://git66.com/2018/03/08/DDD-event-bus/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://git66.com/2018/03/10/DDD-event-bus/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -577,22 +577,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">地图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDD</a>
               </li>
              
@@ -609,6 +593,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">版本控制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -621,22 +629,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">版本控制</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -646,6 +638,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>
