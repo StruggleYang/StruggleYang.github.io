@@ -7,22 +7,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu-site-verification" content="AT9tqAlfWq" />
   <link rel="dns-prefetch" href="http://git66.com">
-  <title>DDD-领域事件及事件总线在Today的使用实践 | StruggleYang</title>
+  <title>Tag: 领域事件 | StruggleYang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮。Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD），今天,已经有不少技术团队有成功实践。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求。而脱离业务需求的应用">
-<meta name="keywords" content="DDD,领域驱动设计,领域事件,eventbus">
-<meta property="og:type" content="article">
-<meta property="og:title" content="DDD-领域事件及事件总线在Today的使用实践">
-<meta property="og:url" content="http://git66.com/2018/03/08/DDD-event-bus/index.html">
+  <meta name="description" content="StruggleYang  struy">
+<meta name="keywords" content="“StruggleYang,js,Jquery,springboot,Java,编程,代码,Angular,全栈工程师”">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StruggleYang">
+<meta property="og:url" content="http://git66.com/tags/领域事件/index.html">
 <meta property="og:site_name" content="StruggleYang">
-<meta property="og:description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮。Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD），今天,已经有不少技术团队有成功实践。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求。而脱离业务需求的应用">
+<meta property="og:description" content="StruggleYang  struy">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/56127281.jpg">
-<meta property="og:updated_time" content="2018-03-10T06:45:18.967Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DDD-领域事件及事件总线在Today的使用实践">
-<meta name="twitter:description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮。Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD），今天,已经有不少技术团队有成功实践。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求。而脱离业务需求的应用">
-<meta name="twitter:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/56127281.jpg">
+<meta name="twitter:title" content="StruggleYang">
+<meta name="twitter:description" content="StruggleYang  struy">
   
     <link rel="alternative" href="/atom.xml" title="StruggleYang" type="application/atom+xml">
   
@@ -176,104 +173,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DDD-event-bus" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      DDD-领域事件及事件总线在Today的使用实践
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/03/08/DDD-event-bus/" class="archive-article-date">
+  	<time datetime="2018-03-08T13:53:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-08</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/03/08/DDD-event-bus/">DDD-领域事件及事件总线在Today的使用实践</a>
     </h1>
   
 
-        
-        <a href="/2018/03/08/DDD-event-bus/" class="archive-article-date">
-  	<time datetime="2018-03-08T13:53:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="DDD与领域事件"><a href="#DDD与领域事件" class="headerlink" title="DDD与领域事件"></a>DDD与领域事件</h2><blockquote>
-<p>在过去的30多年，就已经有领域建模和设计的思潮。Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD），今天,已经有不少技术团队有成功实践。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！</p>
-</blockquote>
-<p>领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求。而脱离业务需求的应用设计是没有任何价值的！</p>
-<p>比如在Today的新零售电商架构中:门店、采购、订单、供应商、物流、商品、台账等等都是应用设计中的不同领域模型，存在明显的界限上下文;这些领域模型必然还存在或多或少的子域模型。而对于技术人员来说，这些抽象出来的领域；就代表应用架构存在若干子系统。并且我们希望各个系统是高度解藕的。</p>
-<p>存在多个子系统，那么领域内和不同领域之间，发生的任何事，比如说“发生某件事情”、“当什么产生变化的时候”、“如果什么状态变更”…，都将成为我们所要关心的事件。</p>
-<a id="more"></a>
-<p>在代码中也通常这样去描述一些状态对应做什么事。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">code <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span> =&gt; </span><br><span class="line">        <span class="comment">// do A</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span> =&gt; </span><br><span class="line">        <span class="comment">// do B</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">case</span> _ =&gt; </span><br><span class="line">        <span class="comment">// do ...</span></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>A,B业务可能是跨模块或者领域的接口，也可能是发送创建某订单失败所需的邮件和短信。通常，我们的做法是去将这些操作封装为单个函数或者不同命名空间下的大小模块。但我们希望领域是干净的，并且这种做法显然已经不再适合于现在的DDD。并且你不能保证你在遇到某个状态时，需要通知第三方系统，而第三方系统只需要知道这件事情已经发生会做出自己的应对，而这与你的领域相关性不会太大。领域事件帮我们更加优雅的解决了这个问题！</p>
-<h2 id="为什么要引入事件"><a href="#为什么要引入事件" class="headerlink" title="为什么要引入事件"></a>为什么要引入事件</h2><p>上文说到，有时候我们没有办法去主观决定我某个状态下做什么事。但是我们可以通知关心某件事的领域，这件事情已经发生或者正在发生，我们将发出通知的一方称为发送者(Publisher),关心事件的一方称为订阅者(Subscriber)。关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播。一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
-<p>如果一件事情的好处大于坏处，我们将认为这件事是可行的。(至少大部分人是这样认为的！)所以，我们还要想想事件的引入，还会给我们的业务系统带来怎样的价值？</p>
-<h4 id="降低耦合，高拓展性"><a href="#降低耦合，高拓展性" class="headerlink" title="降低耦合，高拓展性"></a>降低耦合，高拓展性</h4><p>这样的概念在DDD的世界中我觉得是必然的要求，也会是必然的结果。假设我们的业务代码需要改造，通常订阅者关心的事件内容是不易改变的，况且订阅者关心的信息势必都是关键信息，如果改变，事件消息的改动也是微乎其微的。所以这对于事件发送者来说，拓展性会提高很多；同时耦合明显也降低了不少！</p>
-<h4 id="最终一致性"><a href="#最终一致性" class="headerlink" title="最终一致性"></a>最终一致性</h4><p>如果我们需要保证最终一致性，这对于事件消息来说还是很容易的。这得益于基于消息的重试机制。</p>
-<h2 id="我们是如何实践事件总线的"><a href="#我们是如何实践事件总线的" class="headerlink" title="我们是如何实践事件总线的"></a>我们是如何实践事件总线的</h2><blockquote>
-<p>在这里我们将探讨，today中台的事件总线实践，站在开发者的角度是否易用？又该如何去使用？</p>
-</blockquote>
-<p>为了给第三方和本部门的业务开发人员一致性的开发体验，将事件总线从dapeng的框架中剥离出来。单独提供了dapeng服务的发送端api和配置以及一致的订阅者配置。我们切实的站在开发者的角度，去尽量的减少配置和api的使用复杂度。况且，事件的使用本身就是简单的！</p>
-<h3 id="事件总线eventBus的核心库"><a href="#事件总线eventBus的核心库" class="headerlink" title="事件总线eventBus的核心库"></a>事件总线eventBus的核心库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;com.today&quot; % &quot;event-bus_2.12&quot; % &quot;0.1-SNAPSHOT&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="作为事件消息发送者"><a href="#作为事件消息发送者" class="headerlink" title="作为事件消息发送者"></a>作为事件消息发送者</h2><h3 id="消息的定义和声明"><a href="#消息的定义和声明" class="headerlink" title="消息的定义和声明"></a>消息的定义和声明</h3><p>1.作为事件的发送者，通常的需要定义事件消息的内容并且这些事件双方协商的结果</p>
-<p>2.我们将使用IDL来定义事件消息的结构体，并且这于普通的结构体并无太大差别</p>
-<p>3.必须的需要一个事件id，这将由订阅者自己决定是否需要用这个事件id做消息的幂等</p>
-<p><code>==&gt; events.thrift</code></p>
-<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> java com.today.member.events</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 注册成功事件</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RegisteredEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 事件Id</span></span><br><span class="line"><span class="comment">    **/</span></span><br><span class="line">    <span class="number">1</span>: <span class="built_in">i64</span> id,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 用户id</span></span><br><span class="line"><span class="comment">    **/</span></span><br><span class="line">    <span class="number">2</span>: <span class="built_in">i64</span> userId</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...more</span><br></pre></td></tr></table></figure>
-<h3 id="在定义服务IDL时声明是否触发事件"><a href="#在定义服务IDL时声明是否触发事件" class="headerlink" title="在定义服务IDL时声明是否触发事件"></a>在定义服务IDL时声明是否触发事件</h3><p>我们所有的服务都会在统一的文档站点进行开放，每个服务/每个接口的描述,包括出入参都一目了然。并可在文档站点中做服务测试.</p>
-<ul>
-<li>接口可能会触发多个事件</li>
-</ul>
-<p><code>== &gt;user_service.thrift</code></p>
-<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> java com.today.member.<span class="keyword">service</span></span><br><span class="line">include <span class="string">"user_domain.thrift"</span></span><br><span class="line">include <span class="string">"events.thrift"</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 用户服务</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"># 用户注册</span></span><br><span class="line"><span class="comment">## 事件</span></span><br><span class="line"><span class="comment">    注册成功事件，激活事件</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">    <span class="built_in">string</span> register(user_domain.User user)</span><br><span class="line">    (events=<span class="string">"com.today.member.events.RegisteredEvent,com.today.member.events.ActivedEvent"</span>)</span><br><span class="line">    ...more</span><br><span class="line">&#125;(group=<span class="string">"Biz"</span>)</span><br></pre></td></tr></table></figure>
-<p>在文档站点的显示效果如下：<br><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-10/56127281.jpg" alt=""><br></p>
-<h2 id="订阅你感兴趣的事件"><a href="#订阅你感兴趣的事件" class="headerlink" title="订阅你感兴趣的事件"></a>订阅你感兴趣的事件</h2><p>订阅者该怎么做</p>
-<h2 id="领域内消费事件与跨领域消费事件的异同"><a href="#领域内消费事件与跨领域消费事件的异同" class="headerlink" title="领域内消费事件与跨领域消费事件的异同"></a>领域内消费事件与跨领域消费事件的异同</h2><p>强一致性<br>最终一致性</p>
-<h2 id="与binlog的有机结合"><a href="#与binlog的有机结合" class="headerlink" title="与binlog的有机结合"></a>与binlog的有机结合</h2><p>数据库的binlog有机结合</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>一开始我们都以为别人是对的。<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/26803775.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/14774360.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-        <div class="signature" style="padding: 15px 20px;margin-top: 10px;border-left: 5px solid #657b83;background: #f6f6f6;">
-        本文作者：StruggleYang</br>
-        原文链接：http://git66.com/2018/03/08/DDD-event-bus/</br>
-        版权归作者所有，转载请注明出处
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -297,117 +226,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://git66.com/2018/03/08/DDD-event-bus/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
   
   
-    <a href="/2018/01/06/scala-function-5w/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【scala】函数的演变过程,函数式的优点</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD与领域事件"><span class="toc-number">1.</span> <span class="toc-text">DDD与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要引入事件"><span class="toc-number">2.</span> <span class="toc-text">为什么要引入事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低耦合，高拓展性"><span class="toc-number">2.0.1.</span> <span class="toc-text">降低耦合，高拓展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最终一致性"><span class="toc-number">2.0.2.</span> <span class="toc-text">最终一致性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们是如何实践事件总线的"><span class="toc-number">3.</span> <span class="toc-text">我们是如何实践事件总线的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件总线eventBus的核心库"><span class="toc-number">3.1.</span> <span class="toc-text">事件总线eventBus的核心库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为事件消息发送者"><span class="toc-number">4.</span> <span class="toc-text">作为事件消息发送者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的定义和声明"><span class="toc-number">4.1.</span> <span class="toc-text">消息的定义和声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在定义服务IDL时声明是否触发事件"><span class="toc-number">4.2.</span> <span class="toc-text">在定义服务IDL时声明是否触发事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅你感兴趣的事件"><span class="toc-number">5.</span> <span class="toc-text">订阅你感兴趣的事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">6.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与binlog的有机结合"><span class="toc-number">7.</span> <span class="toc-text">与binlog的有机结合</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -437,9 +268,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
