@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/5321758.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/56127281.jpg">
-<meta property="og:updated_time" content="2018-03-10T16:04:46.175Z">
+<meta property="og:updated_time" content="2018-03-10T16:21:35.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDD-领域事件及事件总线使用实践">
 <meta name="twitter:description" content="DDD与领域事件 在过去的30多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了我们日常开发中的很多痛点！  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设计是没有任何价值的！ 比如在Tod">
@@ -209,7 +209,7 @@
 <p>你不能保证你在遇到某个状态时，需要第三方系统作出应对，你可能不是那么愿意为此去加入冗长的代码甚至引入别人的api，而这与你的领域相关性也不会太大。领域事件帮我们更加优雅的解决了这个问题！</p>
 <p>我们将发出通知的一方称为发送者(Publisher),关心事件的一方称为订阅者(Subscriber)。</p>
 <p>关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播。一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
-<p>如果一件事情的好处大于坏处，我们将认为这件事是可行的。(至少大部分人是这样认为的！)所以，我们还要想想事件的引入，还会给我们的业务系统带来怎样的价值？</p>
+<p>我们还要想想事件的引入，还会给我们的业务系统带来怎样的价值？</p>
 <h4 id="降低耦合，高拓展性"><a href="#降低耦合，高拓展性" class="headerlink" title="降低耦合，高拓展性"></a>降低耦合，高拓展性</h4><p>低耦合在DDD的世界中我觉得是必然的要求，也是必然的结果。</p>
 <p>假设我们的业务代码需要改造，通常订阅者关心的事件内容是不易改变的，况且订阅者关心的信息势必都是关键信息，如果改变，事件消息的改动也是微乎其微的。所以这对于事件发送者来说，拓展性会提高很多；同时耦合明显也降低了不少！</p>
 <h4 id="最终一致性"><a href="#最终一致性" class="headerlink" title="最终一致性"></a>最终一致性</h4><p>如果我们需要保证最终一致性，这对于事件消息来说还是很容易的。这得益于基于消息的重试机制。</p>
@@ -621,14 +621,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">github-pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -638,6 +630,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">github-pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
               </li>
              
               <li class="article-tag-list-item">
