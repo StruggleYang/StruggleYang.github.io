@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-11T05:08:00.585Z">
+<meta property="og:updated_time" content="2018-03-11T05:19:07.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设">
@@ -338,8 +338,9 @@
       <span class="comment">// do somthing</span>
   }
 </code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体来说，不论是事件的发送还是订阅，对于开发者而言都是易用的。并且没有多余的配置。对于第三方系统的支持也做的非常优秀，希望在日常开发中能够更加灵活的运用。尽量减少不必要的耦合！并能经受实践考验！</p>
 <blockquote>
-<p>有关eventBus的具体实现细节，将由小伙伴 hz.lei 来进行剖析！</p>
+<p>有关eventBus的具体实现细节，将由小伙伴 hz.lei 来进行剖析！</p>
 </blockquote>
 <p>hz.lei: <a href="https://www.jianshu.com/p/f89741097113" target="_blank" rel="noopener">DDD-事件总线实现架构原理分析</a></p>
 
@@ -506,7 +507,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">DDD 与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件总线的大体流程"><span class="toc-number">2.</span> <span class="toc-text">事件总线的大体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要引入事件"><span class="toc-number">3.</span> <span class="toc-text">为什么要引入事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低耦合，高拓展性"><span class="toc-number">3.0.1.</span> <span class="toc-text">降低耦合，高拓展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高复用性"><span class="toc-number">3.0.2.</span> <span class="toc-text">高复用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最终一致性与弱关联"><span class="toc-number">3.0.3.</span> <span class="toc-text">最终一致性与弱关联</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">如何实践事件总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件总线eventBus的核心库"><span class="toc-number">4.1.</span> <span class="toc-text">事件总线eventBus的核心库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件内容及状态暂存支持"><span class="toc-number">4.2.</span> <span class="toc-text">事件内容及状态暂存支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为事件消息发送者"><span class="toc-number">5.</span> <span class="toc-text">作为事件消息发送者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的定义和声明"><span class="toc-number">5.1.</span> <span class="toc-text">消息的定义和声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为发送者声明事件"><span class="toc-number">5.2.</span> <span class="toc-text">为发送者声明事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供事件发布任务服务"><span class="toc-number">5.3.</span> <span class="toc-text">提供事件发布任务服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键性的bean配置"><span class="toc-number">5.4.</span> <span class="toc-text">关键性的bean配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的触发"><span class="toc-number">5.5.</span> <span class="toc-text">事件的触发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅你感兴趣的事件"><span class="toc-number">6.</span> <span class="toc-text">订阅你感兴趣的事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于领域内订阅者"><span class="toc-number">6.1.</span> <span class="toc-text">对于领域内订阅者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于跨领域的订阅者"><span class="toc-number">6.2.</span> <span class="toc-text">对于跨领域的订阅者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖"><span class="toc-number">6.2.1.</span> <span class="toc-text">依赖</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">7.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅业务数据库binlog消息"><span class="toc-number">8.</span> <span class="toc-text">订阅业务数据库binlog消息</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">DDD 与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件总线的大体流程"><span class="toc-number">2.</span> <span class="toc-text">事件总线的大体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要引入事件"><span class="toc-number">3.</span> <span class="toc-text">为什么要引入事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低耦合，高拓展性"><span class="toc-number">3.0.1.</span> <span class="toc-text">降低耦合，高拓展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高复用性"><span class="toc-number">3.0.2.</span> <span class="toc-text">高复用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最终一致性与弱关联"><span class="toc-number">3.0.3.</span> <span class="toc-text">最终一致性与弱关联</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">如何实践事件总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件总线eventBus的核心库"><span class="toc-number">4.1.</span> <span class="toc-text">事件总线eventBus的核心库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件内容及状态暂存支持"><span class="toc-number">4.2.</span> <span class="toc-text">事件内容及状态暂存支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为事件消息发送者"><span class="toc-number">5.</span> <span class="toc-text">作为事件消息发送者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的定义和声明"><span class="toc-number">5.1.</span> <span class="toc-text">消息的定义和声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为发送者声明事件"><span class="toc-number">5.2.</span> <span class="toc-text">为发送者声明事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供事件发布任务服务"><span class="toc-number">5.3.</span> <span class="toc-text">提供事件发布任务服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键性的bean配置"><span class="toc-number">5.4.</span> <span class="toc-text">关键性的bean配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的触发"><span class="toc-number">5.5.</span> <span class="toc-text">事件的触发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅你感兴趣的事件"><span class="toc-number">6.</span> <span class="toc-text">订阅你感兴趣的事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于领域内订阅者"><span class="toc-number">6.1.</span> <span class="toc-text">对于领域内订阅者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于跨领域的订阅者"><span class="toc-number">6.2.</span> <span class="toc-text">对于跨领域的订阅者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖"><span class="toc-number">6.2.1.</span> <span class="toc-text">依赖</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">7.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅业务数据库binlog消息"><span class="toc-number">8.</span> <span class="toc-text">订阅业务数据库binlog消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -683,19 +684,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>
