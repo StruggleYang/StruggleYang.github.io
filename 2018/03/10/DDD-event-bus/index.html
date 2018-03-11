@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-11T05:30:13.000Z">
+<meta property="og:updated_time" content="2018-03-11T07:38:10.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。  领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设">
@@ -221,7 +221,7 @@
 </ul>
 <h2 id="为什么要引入事件"><a href="#为什么要引入事件" class="headerlink" title="为什么要引入事件"></a>为什么要引入事件</h2><p>在代码中通常这样去描述一些状态对应做什么事。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">code <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span> =&gt; </span><br><span class="line">        <span class="comment">// do A</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span> =&gt; </span><br><span class="line">        <span class="comment">// do B</span></span><br><span class="line">    <span class="keyword">case</span> _ =&gt; </span><br><span class="line">        <span class="comment">// do ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当遇到某个状态，需要第三方系统作出应对，开发者可能不是那么愿意为此去加入冗长的代码甚至引入别人的 api ，而这与当前领域相关性也不会太大。领域事件帮更加优雅的解决了这个问题！</p>
+<p>当遇到某个状态，需要第三方系统作出应对，开发者可能不是那么愿意为此去加入冗长的代码甚至引入别人的 api ，而这与当前领域相关性也不会太大。领域事件帮助开发者更加优雅的解决了这个问题！</p>
 <blockquote>
 <p>do A 就变成了 do event_A</p>
 </blockquote>
@@ -304,6 +304,8 @@
 <li><p>订阅事件消息</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="meta">@KafkaConsumer</span>(groupId = <span class="string">"goodsEventConsumer"</span>, topic = <span class="string">"goods_1.0.0_event"</span>,kafkaHostKey = <span class="string">"kafka.consumer.host"</span>))</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsEventsConsumer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@KafkaListener</span>(serializer = SkuAttributeUpdateApprovedEventSerializer.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribeSkuAttributeUpdateApprovedEvent</span><span class="params">(SkuAttributeUpdateApprovedEvent event)</span> </span>&#123;</span><br><span class="line">        System.out.println(event.skuId);</span><br><span class="line">        <span class="comment">// do somthing</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//scala</span></span><br><span class="line">serializer = classOf[RegisteredEventSerializer]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
+<li><p><code>GoodsEventsConsumer</code> 也需要在 spring 上下文中托管。</p>
+</li>
 </ul>
 <blockquote>
 <p>@KafkaConsumer</p>
@@ -327,7 +329,7 @@
 <ul>
 <li>领域内的事件订阅者，通常是不能脱离领域的存在，存在领域内强关系的。但又需要解藕！可以用领域内消费事件。eventbus 领域内的消息分发订阅，就可以保证这种强关系一致存在</li>
 <li>在 eventbus 中，领域内消费事件之后还是会将事件消息广播出去。因为不能保证不存在其他领域的事件订阅者！</li>
-<li>而跨领域的事件消息订阅，通常是需要保证最终一致性即可，或者是若关联其他领域的，他们对于事件发送发送方没有强依赖关系，只需要得到自己需要的东西就可以。</li>
+<li>而跨领域的事件消息订阅，通常是需要保证最终一致性即可，或者是弱关联其他领域的，他们对于事件发送发送方没有强依赖关系，只需要得到自己需要的东西就可以。</li>
 </ul>
 <blockquote>
 <p>比如商品领域的商品变价审核通过后，广播了一个事件。将商品id发送给关注此事的领域，这与领域内部是没有关联的，甚至于发送者并不知道事件消息订阅者如何处理。而订阅者也只想得到这部分信息而已！</p>
@@ -666,14 +668,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">版本控制</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -686,15 +680,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">版本控制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,6 +697,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
               </li>
             
             <div class="clearfix"></div>
