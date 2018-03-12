@@ -9,22 +9,22 @@
   <link rel="dns-prefetch" href="http://git66.com">
   <title>领域事件及事件总线EventBus使用实践 | StruggleYang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。  领域模型不是高大上的东西，所有的领域模型抽象都">
+  <meta name="description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
 <meta name="keywords" content="DDD,领域驱动设计,领域事件,eventbus,dapeng">
 <meta property="og:type" content="article">
 <meta property="og:title" content="领域事件及事件总线EventBus使用实践">
 <meta property="og:url" content="http://git66.com/2018/03/10/DDD-event-bus/index.html">
 <meta property="og:site_name" content="StruggleYang">
-<meta property="og:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。  领域模型不是高大上的东西，所有的领域模型抽象都">
+<meta property="og:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/59987509.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-12T00:00:44.000Z">
+<meta property="og:updated_time" content="2018-03-12T04:59:59.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
-<meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。  领域模型不是高大上的东西，所有的领域模型抽象都">
+<meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
 <meta name="twitter:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/59987509.jpg">
   
     <link rel="alternative" href="/atom.xml" title="StruggleYang" type="application/atom+xml">
@@ -204,60 +204,67 @@
 </blockquote>
 <p><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-10/59987509.jpg" alt=""></p>
 <h2 id="DDD-与领域事件"><a href="#DDD-与领域事件" class="headerlink" title="DDD 与领域事件"></a>DDD 与领域事件</h2><blockquote>
-<p>在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块。解决了开发者日常开发中的很多痛点！将程序藕合降低，拓展增强。</p>
+<p>在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。</p>
 </blockquote>
-<p>领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求；而脱离业务需求的应用设计是没有任何价值的！</p>
-<p>比如在Today的新零售电商架构中:门店、采购、订单、供应商、物流、商品、台账等等都是应用设计中的不同领域模型;必然还存在或多或少的子域模型。而对于技术人员来说，这些抽象出来的领域；就代表应用架构存在若干子系统。</p>
+<p>领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求,而脱离业务需求的应用设计是没有任何价值的！</p>
+<p>比如在Today的新零售电商架构中:门店、采购、订单、供应商、物流、商品、台账等等都是应用设计中的不同领域模型，必然还存在或多或少的子域模型。而对于技术人员来说，这些抽象出来的领域，就代表应用架构存在若干子系统。</p>
 <p>系统与系统间，势必会存在某些关联。比如说A领域“发生某件事情”、“当什么产生变化的时候”、“如果什么状态变更”…，都将可能成为B领域所要关心的事件。</p>
 <a id="more"></a>
 <h2 id="事件总线的大体流程"><a href="#事件总线的大体流程" class="headerlink" title="事件总线的大体流程"></a>事件总线的大体流程</h2><ul>
 <li><p>在这里发出事件通知的一方称为发送者 (Publisher) ,关心事件的一方称为订阅者 (Subscriber)。</p>
 </li>
-<li><p>关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播。一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
+<li><p>关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播，一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
 </li>
 </ul>
 <p><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg" alt=""><br>以上eventbus示意图大致流程是这样的：</p>
 <ul>
 <li>服务接口触发事件</li>
-<li>eventbus 分发事件，如果存在领域内订阅者，直接分发到指定订阅，再将事件消息存库定时发送至 kafka</li>
+<li>eventbus 分发事件，如果存在领域内订阅者，直接分发到指定订阅者，再将事件消息存库定时发送至 kafka</li>
 <li>如果不存在领域内订阅者，事件消息直接存库并定时发送 kafka</li>
 <li>消息在发送成功以后会被清除，为了保证事务的一致性。建议事件db共享业务数据源</li>
 <li>订阅者只需要订阅事件双方规约好的 topic 和事件类型就可以命中需要的事件消息</li>
 </ul>
-<h2 id="为什么要引入事件"><a href="#为什么要引入事件" class="headerlink" title="为什么要引入事件"></a>为什么要引入事件</h2><p>在代码中通常这样去描述一些状态对应做什么事。</p>
+<h2 id="为什么要引入事件"><a href="#为什么要引入事件" class="headerlink" title="为什么要引入事件"></a>为什么要引入事件</h2><p>在代码中通常这样去描述针对某些状态对应做什么事。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">code <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span> =&gt; </span><br><span class="line">        <span class="comment">// do A</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span> =&gt; </span><br><span class="line">        <span class="comment">// do B</span></span><br><span class="line">    <span class="keyword">case</span> _ =&gt; </span><br><span class="line">        <span class="comment">// do ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当遇到某个状态，需要第三方系统作出应对，开发者可能不是那么愿意为此去加入冗长的代码甚至引入别人的 api ，而这与当前领域相关性也不会太大。领域事件帮助开发者更加优雅的解决了这个问题！</p>
 <blockquote>
 <p>do A 就变成了 do event_A</p>
 </blockquote>
 <h4 id="降低耦合，高拓展性"><a href="#降低耦合，高拓展性" class="headerlink" title="降低耦合，高拓展性"></a>降低耦合，高拓展性</h4><ul>
-<li>事件对于触发的一方来说只是一个函数，而不再是一大堆的业务逻辑，将这些与领域解藕。让业务系统只关心业务！</li>
-<li>如果发送方需要发送更多的事件，只需要触发更多的方法即可。对于订阅者来说，可以订阅任何领域发过来的事件消息</li>
+<li>事件对于触发的一方来说只是一个函数，而不再是一大堆的业务逻辑，将这些与领域解藕，让业务系统只关心业务！</li>
+<li>如果发送方需要发送更多的事件，只需要触发更多的方法即可；对于订阅者来说，可以订阅任何领域发过来的事件消息</li>
 </ul>
 <h4 id="高复用性"><a href="#高复用性" class="headerlink" title="高复用性"></a>高复用性</h4><ul>
-<li>事件可能只需要做一次，而发送者与订阅者是 1:N 的。一个事件可以被不同的接口多次触发。</li>
+<li>事件可能只需要做一次，而发送者与订阅者是 1:N 的，一个事件可以被不同的接口多次触发。</li>
 </ul>
-<h4 id="最终一致性与弱关联"><a href="#最终一致性与弱关联" class="headerlink" title="最终一致性与弱关联"></a>最终一致性与弱关联</h4><p>通常需要保证数据的最终一致性，这对于事件消息来说还是很容易的。这得益于基于消息的重试机制。与主业务关系不大的业务，如：发邮件，发短信等。这种弱关联是可以在事件中获益！</p>
+<h4 id="最终一致性与弱关联"><a href="#最终一致性与弱关联" class="headerlink" title="最终一致性与弱关联"></a>最终一致性与弱关联</h4><p>通常需要保证数据的最终一致性，这对于事件消息来说还是很容易的，这得益于基于消息的重试机制。与主业务关系不大的业务，如：发邮件，发短信等,这种弱关联是可以在事件中获益！</p>
 <h2 id="如何实践事件总线"><a href="#如何实践事件总线" class="headerlink" title="如何实践事件总线"></a>如何实践事件总线</h2><blockquote>
-<p>在 today 中台的各领域实践中，已经开始投产 eventbus ，并且效果可观，三方系统的订阅对接相当便捷。那这样的事件机制该如何去使用？</p>
+<p>在 today 中台服务团队的各领域实践中，已经开始投产 eventbus ，并且效果可观，三方系统的订阅对接相当便捷.那这样的事件机制该如何去使用？</p>
 </blockquote>
-<p>为了给第三方系统和本部门的业务开发人员一致性的开发体验，将事件总线从dapeng的框架中剥离出来。单独提供了 dapeng 服务的发送端 api 和配置以及一致简洁的订阅者配置。</p>
+<p>为了给第三方系统和本部门的业务开发人员提供一致性的开发体验，我们将事件总线从dapeng的框架中剥离出来, 单独提供了一套类库用于实现事件的发布以及订阅。</p>
 <h3 id="事件总线eventBus的核心库"><a href="#事件总线eventBus的核心库" class="headerlink" title="事件总线eventBus的核心库"></a>事件总线eventBus的核心库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;com.today&quot; % &quot;event-bus_2.12&quot; % &quot;0.1-SNAPSHOT&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="事件内容及状态暂存支持"><a href="#事件内容及状态暂存支持" class="headerlink" title="事件内容及状态暂存支持"></a>事件内容及状态暂存支持</h3><ul>
 <li>需要在业务数据库加入一张如下结构数据表,这将作为事件消息的暂存队列和事件发送状态存储表<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`common_event`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>  <span class="keyword">COMMENT</span> <span class="string">'事件id'</span>,</span><br><span class="line">  <span class="string">`event_type`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'事件类型'</span>,</span><br><span class="line">  <span class="string">`event_binary`</span> <span class="built_in">blob</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'事件内容'</span>,</span><br><span class="line">  <span class="string">`updated_at`</span> <span class="keyword">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">current_timestamp</span>() <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">current_timestamp</span>() <span class="keyword">COMMENT</span> <span class="string">'更新时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <blockquote>
-<p>这里以商品变价审核的状态变更为例，了解在开发中如何做事件发送与订阅</p>
+<p>这里以商品变价审核的状态变更为例，了解在开发中如何做事件发送与订阅.<br>具体来说,就是三步:</p>
+<ol>
+<li>定义事件结构体</li>
+<li>在服务接口方法中声明待发布的事件</li>
+<li>通过EventBus发布事件</li>
+<li>通过EventBus接受事件</li>
+</ol>
 </blockquote>
-<h2 id="作为事件消息发送者"><a href="#作为事件消息发送者" class="headerlink" title="作为事件消息发送者"></a>作为事件消息发送者</h2><h3 id="消息的定义和声明"><a href="#消息的定义和声明" class="headerlink" title="消息的定义和声明"></a>消息的定义和声明</h3><p>1.作为事件的发送者，通常的需要定义事件消息的内容并且这些由事件双方协定</p>
-<p>2.必须的需要一个事件 id ，这将由订阅者自己决定是否需要用这个事件 id 做消息的幂等</p>
+<p>下面具体说明一下每个步骤</p>
+<h2 id="作为事件消息发送者"><a href="#作为事件消息发送者" class="headerlink" title="作为事件消息发送者"></a>作为事件消息发送者</h2><h3 id="消息的定义和声明"><a href="#消息的定义和声明" class="headerlink" title="消息的定义和声明"></a>消息的定义和声明</h3><p>1.事件收发双方共同协定定义事件消息的内容, 一个领域的所有消息定义都在同一个独立的idl文件中. 这个idl文件应该放在发布者的API包中.</p>
+<p>2.我们的事件对象需要定义一个事件 id (建议通过分布式取号服务来获取), 订阅者可以自己决定是否需要用这个事件 id 来做消息的幂等处理</p>
 <p><code>==&gt; goods_events.thrift</code></p>
 <figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> java com.today.api.goods.events</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 商品变价审核通过事件</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SkuPriceUpdateApprovedEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 事件id</span></span><br><span class="line"><span class="comment">    **/</span></span><br><span class="line">    <span class="number">1</span>:<span class="built_in">i64</span> id,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * sku_id</span></span><br><span class="line"><span class="comment">    **/</span></span><br><span class="line">    <span class="number">2</span>:<span class="built_in">i64</span> skuId</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...more</span><br></pre></td></tr></table></figure>
-<h3 id="为发送者声明事件"><a href="#为发送者声明事件" class="headerlink" title="为发送者声明事件"></a>为发送者声明事件</h3><blockquote>
-<p>秉承代码及文档的理念，所有的服务都会在统一的文档站点进行开放展示，每个服务/每个接口的描述,包括出入参都一目了然.</p>
+<h3 id="声明事件"><a href="#声明事件" class="headerlink" title="声明事件"></a>声明事件</h3><blockquote>
+<p>秉承代码及文档一致的理念，所有的服务都会在统一的文档站点进行开放展示，每个服务/每个接口的描述,包括出入参都一目了然.</p>
 <ul>
-<li>为发送者声明事件，事件清单将在文档站点的展示，减少服务开发人员相互催发文档，一看便知。</li>
+<li>我们在服务接口方法里面声明需要发布的事件，这些事件清单将会在文档站点对应的服务方法中得到展示，减少服务开发人员的沟通成本，一看便知。</li>
 </ul>
 </blockquote>
 <p><code>== &gt;goods_service.thrift</code></p>
@@ -269,10 +276,10 @@
 <blockquote>
 <p>注：如果想要了解更多有关文档站点的内容，请留意后期的 dapeng 文档站点专题</p>
 </blockquote>
-<h3 id="提供事件发布任务服务"><a href="#提供事件发布任务服务" class="headerlink" title="提供事件发布任务服务"></a>提供事件发布任务服务</h3><p><code>==&gt; goods_event_task.thrift</code></p>
+<h3 id="定义事件发布任务"><a href="#定义事件发布任务" class="headerlink" title="定义事件发布任务"></a>定义事件发布任务</h3><p><code>==&gt; goods_event_task.thrift</code></p>
 <figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> java com.today.api.goods.<span class="keyword">service</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 商品事件发布任务</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">GoodsScheduledService</span> </span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"># 事件发布</span></span><br><span class="line"><span class="comment">## 注意事项</span></span><br><span class="line"><span class="comment">    1.商品服务的事件发布任务</span></span><br><span class="line"><span class="comment">    2.不需在文档站点测试</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">    <span class="keyword">void</span> publishEventMsg()</span><br><span class="line">&#125;(group=<span class="string">"Scheduler"</span>)</span><br></pre></td></tr></table></figure>
 <p>为发布任务服务提供以下实现模版</p>
-<p><code>==&gt; task/GoodsScheduledServiceImpl.scala</code><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ScheduledTask</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsScheduledServiceImpl</span> <span class="keyword">extends</span> <span class="title">GoodsScheduledService</span></span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span>(name = <span class="string">"messageTask"</span>)</span><br><span class="line">  <span class="keyword">var</span> msgScheduler: <span class="type">MsgPublishTask</span> = _</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ScheduledTaskCron</span>(cron = <span class="string">"*/2 * * * * ?"</span>)</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">publishEventMsg</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    msgScheduler.doPublishMessages()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>==&gt; task/GoodsScheduledServiceImpl.scala</code><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ScheduledTask</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsScheduledServiceImpl</span> <span class="keyword">extends</span> <span class="title">GoodsScheduledService</span></span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span>(name = <span class="string">"messageTask"</span>)</span><br><span class="line">  <span class="keyword">var</span> msgScheduler: <span class="type">MsgPublishTask</span> = _</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ScheduledTaskCron</span>(cron = <span class="string">"*/2 * * * * ?"</span>)</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">publishEventMsg</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//EventBus已经处理了多节点同时触发的问题了</span></span><br><span class="line">    msgScheduler.doPublishMessages()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="关键性的bean配置"><a href="#关键性的bean配置" class="headerlink" title="关键性的bean配置"></a>关键性的bean配置</h3><ul>
 <li><p>所有的事件消息，最终都会发送到 kafka 的队列中，等待订阅者消费；所以每一个配置都将必不可少。<br><code>==&gt; spring/services.xml</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--messageTask 事件发布任务bean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"messageTask"</span> <span class="attr">class</span>=<span class="string">"com.today.eventbus.scheduler.MsgPublishTask"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"topic"</span> <span class="attr">value</span>=<span class="string">"$&#123;KAFKA_TOPIC&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"kafkaHost"</span> <span class="attr">value</span>=<span class="string">"$&#123;KAFKA_PRODUCER_HOST&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"tidPrefix"</span> <span class="attr">value</span>=<span class="string">"$&#123;KAFKA_TID_PREFIX&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"tx_goods_dataSource"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -306,7 +313,7 @@
 <li><p>注解扫描支持配置：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"postProcessor"</span> <span class="attr">class</span>=<span class="string">"com.today.eventbus.MsgAnnotationBeanPostProcessor"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>订阅事件消息</p>
+<li><p>订阅事件消息<br>同一个领域的事件在同一个消费者类中处理</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="meta">@KafkaConsumer</span>(groupId = <span class="string">"goodsEventConsumer"</span>, topic = <span class="string">"goods_1.0.0_event"</span>,kafkaHostKey = <span class="string">"kafka.consumer.host"</span>))</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsEventsConsumer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@KafkaListener</span>(serializer = SkuAttributeUpdateApprovedEventSerializer.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribeSkuAttributeUpdateApprovedEvent</span><span class="params">(SkuAttributeUpdateApprovedEvent event)</span> </span>&#123;</span><br><span class="line">        System.out.println(event.skuId);</span><br><span class="line">        <span class="comment">// do somthing</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//scala</span></span><br><span class="line">serializer = classOf[RegisteredEventSerializer]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>GoodsEventsConsumer</code> 也需要在 spring 上下文中托管。</p>
@@ -520,7 +527,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">DDD 与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件总线的大体流程"><span class="toc-number">2.</span> <span class="toc-text">事件总线的大体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要引入事件"><span class="toc-number">3.</span> <span class="toc-text">为什么要引入事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低耦合，高拓展性"><span class="toc-number">3.0.1.</span> <span class="toc-text">降低耦合，高拓展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高复用性"><span class="toc-number">3.0.2.</span> <span class="toc-text">高复用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最终一致性与弱关联"><span class="toc-number">3.0.3.</span> <span class="toc-text">最终一致性与弱关联</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">如何实践事件总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件总线eventBus的核心库"><span class="toc-number">4.1.</span> <span class="toc-text">事件总线eventBus的核心库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件内容及状态暂存支持"><span class="toc-number">4.2.</span> <span class="toc-text">事件内容及状态暂存支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为事件消息发送者"><span class="toc-number">5.</span> <span class="toc-text">作为事件消息发送者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的定义和声明"><span class="toc-number">5.1.</span> <span class="toc-text">消息的定义和声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为发送者声明事件"><span class="toc-number">5.2.</span> <span class="toc-text">为发送者声明事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供事件发布任务服务"><span class="toc-number">5.3.</span> <span class="toc-text">提供事件发布任务服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键性的bean配置"><span class="toc-number">5.4.</span> <span class="toc-text">关键性的bean配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的触发"><span class="toc-number">5.5.</span> <span class="toc-text">事件的触发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅你感兴趣的事件"><span class="toc-number">6.</span> <span class="toc-text">订阅你感兴趣的事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于领域内订阅者"><span class="toc-number">6.1.</span> <span class="toc-text">对于领域内订阅者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于跨领域的订阅者"><span class="toc-number">6.2.</span> <span class="toc-text">对于跨领域的订阅者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖"><span class="toc-number">6.2.1.</span> <span class="toc-text">依赖</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">7.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅业务数据库binlog消息"><span class="toc-number">8.</span> <span class="toc-text">订阅业务数据库binlog消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">DDD 与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件总线的大体流程"><span class="toc-number">2.</span> <span class="toc-text">事件总线的大体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要引入事件"><span class="toc-number">3.</span> <span class="toc-text">为什么要引入事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低耦合，高拓展性"><span class="toc-number">3.0.1.</span> <span class="toc-text">降低耦合，高拓展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高复用性"><span class="toc-number">3.0.2.</span> <span class="toc-text">高复用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最终一致性与弱关联"><span class="toc-number">3.0.3.</span> <span class="toc-text">最终一致性与弱关联</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">如何实践事件总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件总线eventBus的核心库"><span class="toc-number">4.1.</span> <span class="toc-text">事件总线eventBus的核心库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件内容及状态暂存支持"><span class="toc-number">4.2.</span> <span class="toc-text">事件内容及状态暂存支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为事件消息发送者"><span class="toc-number">5.</span> <span class="toc-text">作为事件消息发送者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#消息的定义和声明"><span class="toc-number">5.1.</span> <span class="toc-text">消息的定义和声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明事件"><span class="toc-number">5.2.</span> <span class="toc-text">声明事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义事件发布任务"><span class="toc-number">5.3.</span> <span class="toc-text">定义事件发布任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键性的bean配置"><span class="toc-number">5.4.</span> <span class="toc-text">关键性的bean配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的触发"><span class="toc-number">5.5.</span> <span class="toc-text">事件的触发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅你感兴趣的事件"><span class="toc-number">6.</span> <span class="toc-text">订阅你感兴趣的事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于领域内订阅者"><span class="toc-number">6.1.</span> <span class="toc-text">对于领域内订阅者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于跨领域的订阅者"><span class="toc-number">6.2.</span> <span class="toc-text">对于跨领域的订阅者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖"><span class="toc-number">6.2.1.</span> <span class="toc-text">依赖</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">7.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅业务数据库binlog消息"><span class="toc-number">8.</span> <span class="toc-text">订阅业务数据库binlog消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -637,6 +644,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDD</a>
               </li>
              
@@ -654,22 +677,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">dapeng</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">地图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,6 +700,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -706,10 +717,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
             
             <div class="clearfix"></div>
