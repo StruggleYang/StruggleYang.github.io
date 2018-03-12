@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-12T07:30:56.000Z">
+<meta property="og:updated_time" content="2018-03-12T07:39:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码耦合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
@@ -339,12 +339,12 @@
 </ul>
 <h2 id="领域内消费事件与跨领域消费事件的异同"><a href="#领域内消费事件与跨领域消费事件的异同" class="headerlink" title="领域内消费事件与跨领域消费事件的异同"></a>领域内消费事件与跨领域消费事件的异同</h2><p>通过以上已经知道在事件中，存在领域内的订阅者消费事件消息，也可能存在跨领域的事件订阅者消费事件消息。这两者有何异同？</p>
 <ul>
-<li>领域内的事件订阅者，通常是不能脱离领域的存在，存在领域内强关系的。但又需要解耦！可以用领域内消费事件。eventbus 领域内的消息分发订阅，就可以保证这种强关系一致存在</li>
+<li>领域内的事件订阅者，通常是不能脱离领域的存在，存在领域内强关系的，但又需要解耦！可以用 eventbus 领域内的消息分发订阅，就可以保证这种强关系一致存在</li>
 <li>在 eventbus 中，领域内消费事件之后还是会将事件消息广播出去。因为不能保证不存在其他领域的事件订阅者！</li>
 <li>而跨领域的事件消息订阅，通常是需要保证最终一致性即可，或者是弱关联其他领域的，他们对于事件发送发送方没有强依赖关系，只需要得到自己需要的东西就可以。</li>
 </ul>
 <blockquote>
-<p>比如商品领域的商品变价审核通过后，广播了一个事件。将商品id发送给关注此事的领域，这与领域内部是没有关联的，甚至于发送者并不知道事件消息订阅者如何处理。而订阅者也只想得到这部分信息而已！</p>
+<p>比如商品领域的商品变价审核通过后，广播了一个事件：将商品id发送给关注此事的领域。这与领域内部是没有关联的，甚至于发送者并不知道事件消息订阅者如何处理，而订阅者也只想得到这部分信息而已！</p>
 </blockquote>
 <h2 id="订阅业务数据库binlog消息"><a href="#订阅业务数据库binlog消息" class="headerlink" title="订阅业务数据库binlog消息"></a>订阅业务数据库binlog消息</h2><p>将订阅者 api 进行了有趣的拓展，和事件消息类似的。加入新的点子来做 binlog 的订阅处理。</p>
 <pre><code class="java"><span class="meta">@BinlogListener</span>
@@ -644,22 +644,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">地图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDD</a>
               </li>
              
@@ -680,6 +664,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -692,15 +692,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">github-pages</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
