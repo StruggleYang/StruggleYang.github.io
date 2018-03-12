@@ -18,10 +18,10 @@
 <meta property="og:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-10/59987509.jpg">
-<meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg">
+<meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-12T04:59:59.999Z">
+<meta property="og:updated_time" content="2018-03-12T06:55:47.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码藕合降低，拓展性增强。  领域模型不是高大上的东西，所有的领域模型">
@@ -216,7 +216,7 @@
 <li><p>关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播，一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
 </li>
 </ul>
-<p><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-11/5823470.jpg" alt=""><br>以上eventbus示意图大致流程是这样的：</p>
+<p><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg" alt=""><br>以上eventbus示意图大致流程是这样的：</p>
 <ul>
 <li>服务接口触发事件</li>
 <li>eventbus 分发事件，如果存在领域内订阅者，直接分发到指定订阅者，再将事件消息存库定时发送至 kafka</li>
@@ -644,22 +644,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">地图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDD</a>
               </li>
              
@@ -677,6 +661,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">dapeng</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Angular</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Arcgis for JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">地图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -704,19 +704,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
               </li>
             
             <div class="clearfix"></div>
