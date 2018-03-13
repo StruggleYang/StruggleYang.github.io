@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-13T09:02:20.515Z">
+<meta property="og:updated_time" content="2018-03-13T09:53:47.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   了解 DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码耦合降低，拓展性增强。  领域模型不是高大上的东西，所有的领">
@@ -331,9 +331,10 @@
 <p>@KafkaConsumer</p>
 </blockquote>
 <ul>
-<li>groupId   kafka Consumer groupId，领域区分</li>
-<li>topic     kafka 消息 topic </li>
-<li>kafkaHostKey  可自行配置的 kafka 地址，默认值为<code>dapeng.kafka.consumer.host</code>。可以自定义以覆盖默认值<ul>
+<li><code>groupI</code>：kafka Consumer groupId，领域区分</li>
+<li><code>topic</code> ：kafka 消息 topic </li>
+<li><code>kafkaHostKey</code>：  <ul>
+<li>可自行配置的 kafka 地址，默认值为<code>dapeng.kafka.consumer.host</code>，可以自定义以覆盖默认值</li>
 <li>用户只要负责把这些配置放到 env 或者 properties 里面</li>
 <li>如：<code>System.setProperty(&quot;kafka.consumer.host&quot;,&quot;127.0.0.1:9092&quot;);</code></li>
 </ul>
@@ -658,26 +659,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DDD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">领域驱动设计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">领域事件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">dapeng</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Angular</a>
               </li>
              
@@ -702,7 +683,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DDD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">领域驱动设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">领域事件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">dapeng</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,7 +719,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,14 +732,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>
