@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-13T09:54:22.462Z">
+<meta property="og:updated_time" content="2018-03-13T09:59:39.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   了解 DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码耦合降低，拓展性增强。  领域模型不是高大上的东西，所有的领">
@@ -203,14 +203,14 @@
 <p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏😄</p>
 </blockquote>
 <p><img src="http://oqr3htxnb.bkt.clouddn.com/18-3-10/59987509.jpg" alt=""></p>
-<h2 id="了解-DDD-与领域事件"><a href="#了解-DDD-与领域事件" class="headerlink" title="了解 DDD 与领域事件"></a>了解 DDD 与领域事件</h2><blockquote>
+<h1 id="了解-DDD-与领域事件"><a href="#了解-DDD-与领域事件" class="headerlink" title="了解 DDD 与领域事件"></a>了解 DDD 与领域事件</h1><blockquote>
 <p>在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码耦合降低，拓展性增强。</p>
 </blockquote>
 <p>领域模型不是高大上的东西，所有的领域模型抽象都来自于具体的业务及业务的需求,而脱离业务需求的应用设计是没有任何价值的！</p>
 <p>比如在Today的新零售电商架构中:门店、采购、订单、供应商、物流、商品、台账等等都是应用设计中的不同领域模型，必然还存在或多或少的子域模型。而对于技术人员来说，这些抽象出来的领域，就代表应用架构存在若干子系统。</p>
 <p>系统与系统间，势必会存在某些关联。比如说A领域“发生某件事情”、“当什么产生变化的时候”、“如果什么状态变更”…，都将可能成为B领域所要关心的事件。</p>
 <a id="more"></a>
-<h2 id="事件总线"><a href="#事件总线" class="headerlink" title="事件总线"></a>事件总线</h2><ul>
+<h1 id="事件总线"><a href="#事件总线" class="headerlink" title="事件总线"></a>事件总线</h1><ul>
 <li><p>我们将发出事件通知的一方称为发送者 (Publisher) ,关心事件的一方称为订阅者 (Subscriber)。</p>
 </li>
 <li><p>关心一件事，便会收集这件事情相关的信息。而这些都将会转换为消息流，在订阅这件事情的领域间传播，一旦命中所要关心的事情，就由订阅者自行去处理接下来的事情。</p>
@@ -224,7 +224,7 @@
 <li>消息在发送成功以后会被清除，为了保证事务的一致性。建议事件db共享业务数据源</li>
 <li>订阅者只需要订阅事件双方规约好的 topic 和事件类型就可以命中需要的事件消息</li>
 </ul>
-<h2 id="引入事件的依据"><a href="#引入事件的依据" class="headerlink" title="引入事件的依据"></a>引入事件的依据</h2><p>很多业务场景下，我们可能需要在某件事情完成后，根据业务完成状态来做业务路由。</p>
+<h1 id="引入事件的依据"><a href="#引入事件的依据" class="headerlink" title="引入事件的依据"></a>引入事件的依据</h1><p>很多业务场景下，我们可能需要在某件事情完成后，根据业务完成状态来做业务路由。</p>
 <blockquote>
 <p>比如说商品领域的的变价审核业务，在商品变价审核通过之后，对应的商品价格也随之生效；价格的变动可能会引起采购，供应商，抑或者门店等领域作出响应的调整。</p>
 </blockquote>
@@ -233,7 +233,7 @@
 <blockquote>
 <p>当引入事件后，do A 将变成了 send eventA</p>
 </blockquote>
-<h2 id="实践事件总线"><a href="#实践事件总线" class="headerlink" title="实践事件总线"></a>实践事件总线</h2><blockquote>
+<h1 id="实践事件总线"><a href="#实践事件总线" class="headerlink" title="实践事件总线"></a>实践事件总线</h1><blockquote>
 <p>在 today 中台服务团队的各领域实践中，已经开始投产 eventbus ，并且效果可观，三方系统的订阅对接相当便捷.那这样的事件机制该如何去使用？</p>
 </blockquote>
 <p>为了给第三方系统和本部门的业务开发人员提供一致性的开发体验，我们将事件总线从dapeng的框架中剥离出来, 单独提供了一套类库用于实现事件的发布以及订阅。</p>
@@ -256,7 +256,7 @@
 <li>通过EventBus发布事件</li>
 <li>通过EventBus接收事件</li>
 </ol>
-<p>下面具体说明一下每个步骤</p>
+<p>下面具体说明一下每个步骤:</p>
 <h2 id="定义事件结构体"><a href="#定义事件结构体" class="headerlink" title="定义事件结构体"></a>定义事件结构体</h2><p>1.事件收发双方共同协定定义事件消息的内容, 一个领域的所有消息定义都在同一个独立的idl文件中. 这个idl文件应该放在发布者的API包中.</p>
 <p>2.我们的事件对象需要定义一个事件 id (建议通过分布式取号服务来获取), 订阅者可以自己决定是否需要用这个事件 id 来做消息的幂等处理</p>
 <p><code>==&gt; goods_events.thrift</code></p>
@@ -334,7 +334,7 @@
 <li><code>groupId</code>：kafka Consumer groupId，领域区分</li>
 <li><code>topic</code> ：kafka 消息 topic </li>
 <li><code>kafkaHostKey</code>：  <ul>
-<li>可自行配置的 kafka 地址，默认值为<code>dapeng.kafka.consumer.host</code>，可以自定义以覆盖默认值</li>
+<li>可自行配置的 kafka 地址，默认值为<code>dapeng.kafka.consumer.host</code>，可以自定义覆盖默认值</li>
 <li>用户只要负责把这些配置放到 env 或者 properties 里面</li>
 <li>如：<code>System.setProperty(&quot;kafka.consumer.host&quot;,&quot;127.0.0.1:9092&quot;);</code></li>
 </ul>
@@ -542,7 +542,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#了解-DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">了解 DDD 与领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件总线"><span class="toc-number">2.</span> <span class="toc-text">事件总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引入事件的依据"><span class="toc-number">3.</span> <span class="toc-text">引入事件的依据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">实践事件总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义事件结构体"><span class="toc-number">5.</span> <span class="toc-text">定义事件结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明待发布事件"><span class="toc-number">6.</span> <span class="toc-text">声明待发布事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过EventBus发布事件"><span class="toc-number">7.</span> <span class="toc-text">通过EventBus发布事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过EventBus接收事件"><span class="toc-number">8.</span> <span class="toc-text">通过EventBus接收事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">9.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附-binlog-kafka动态缓存更新支持"><span class="toc-number">10.</span> <span class="toc-text">附:binlog-kafka动态缓存更新支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">11.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#了解-DDD-与领域事件"><span class="toc-number">1.</span> <span class="toc-text">了解 DDD 与领域事件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件总线"><span class="toc-number">2.</span> <span class="toc-text">事件总线</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入事件的依据"><span class="toc-number">3.</span> <span class="toc-text">引入事件的依据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实践事件总线"><span class="toc-number">4.</span> <span class="toc-text">实践事件总线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义事件结构体"><span class="toc-number">4.1.</span> <span class="toc-text">定义事件结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明待发布事件"><span class="toc-number">4.2.</span> <span class="toc-text">声明待发布事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过EventBus发布事件"><span class="toc-number">4.3.</span> <span class="toc-text">通过EventBus发布事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过EventBus接收事件"><span class="toc-number">4.4.</span> <span class="toc-text">通过EventBus接收事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域内消费事件与跨领域消费事件的异同"><span class="toc-number">4.5.</span> <span class="toc-text">领域内消费事件与跨领域消费事件的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附-binlog-kafka动态缓存更新支持"><span class="toc-number">4.6.</span> <span class="toc-text">附:binlog-kafka动态缓存更新支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
