@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-12/24835978.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/65554100.jpg">
 <meta property="og:image" content="http://oqr3htxnb.bkt.clouddn.com/18-3-11/90371526.jpg">
-<meta property="og:updated_time" content="2018-03-14T02:42:31.969Z">
+<meta property="og:updated_time" content="2018-03-14T02:46:14.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="@大鹏开源:别看我有点萌，我可以秒变大鹏😄   了解 DDD 与领域事件 在过去的 30 多年，就已经有领域建模和设计的思潮；Eric Evans 将其定义为领域驱动设计（Domain-Driven Design，简称DDD）。领域模型是领域驱动的核心，而领域事件又作为领域模型中的重要模块，解决了开发者日常开发中的很多痛点，比如，代码耦合降低，拓展性增强。  领域模型不是高大上的东西，所有的领">
@@ -279,7 +279,9 @@
 </ul>
 <p><code>==&gt; goods_event_task.thrift</code></p>
 <figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> java com.today.api.goods.<span class="keyword">service</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 商品事件发布任务</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">GoodsScheduledService</span> </span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"># 事件发布</span></span><br><span class="line"><span class="comment">## 注意事项</span></span><br><span class="line"><span class="comment">    1.商品服务的事件发布任务</span></span><br><span class="line"><span class="comment">    2.不需在文档站点测试</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">    <span class="keyword">void</span> publishEventMsg()</span><br><span class="line">&#125;(group=<span class="string">"Scheduler"</span>)</span><br></pre></td></tr></table></figure>
-<p>为发布任务服务提供以下实现模版</p>
+<ul>
+<li>为发布任务服务提供以下实现模版</li>
+</ul>
 <p><code>==&gt; task/GoodsScheduledServiceImpl.scala</code><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ScheduledTask</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsScheduledServiceImpl</span> <span class="keyword">extends</span> <span class="title">GoodsScheduledService</span></span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span>(name = <span class="string">"messageTask"</span>)</span><br><span class="line">  <span class="keyword">var</span> msgScheduler: <span class="type">MsgPublishTask</span> = _</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ScheduledTaskCron</span>(cron = <span class="string">"*/2 * * * * ?"</span>)</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">publishEventMsg</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//EventBus已经处理了多节点同时触发的问题了</span></span><br><span class="line">    msgScheduler.doPublishMessages()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><p>关键性的bean配置</p>
@@ -353,19 +355,19 @@
 </ul>
 <h2 id="领域内消费事件与跨领域消费事件的不同"><a href="#领域内消费事件与跨领域消费事件的不同" class="headerlink" title="领域内消费事件与跨领域消费事件的不同"></a>领域内消费事件与跨领域消费事件的不同</h2><p>通过以上已经知道在事件中，存在领域内的订阅者消费事件消息，也可能存在跨领域的事件订阅者消费事件消息。下面将分析这两者的不同：</p>
 <ul>
-<li>领域内的事件订阅者，通常是<strong>不能脱离领域的存在，存在领域内强关系的，但又需要解耦！</strong> <blockquote>
+<li>领域内的事件订阅者，通常是<strong>不能脱离领域的存在，存在领域内强关系的，但又需要解耦！</strong> </li>
+<li>而跨领域的事件消息订阅，通常<strong>只需保证最终一致性，他们相对事件发送方没有强依赖关系</strong>。<blockquote>
 <p>需要注意的是：在 eventbus 中，领域内消费事件之后还是会将事件消息广播出去。因为不能保证不会有其他领域对发生的事件感兴趣！</p>
 </blockquote>
 </li>
-<li>而跨领域的事件消息订阅，通常<strong>只需保证最终一致性，他们相对事件发送方没有强依赖关系</strong>。</li>
 </ul>
 <blockquote>
 <p>如商品领域的商品变价审核通过后，触发了审核通过事件：</p>
+</blockquote>
 <ul>
 <li>事件触发后将使价格生效，这部分生效操作可以通过领域内的事件订阅进行解耦。</li>
 <li>因为更新了商品价格，可能存在库存系统或者其他业务系统对商品数据敏感，可以通过跨领域事件发送-订阅，做商品的数据推送</li>
 </ul>
-</blockquote>
 <h2 id="附-binlog-kafka动态缓存更新支持"><a href="#附-binlog-kafka动态缓存更新支持" class="headerlink" title="附:binlog-kafka动态缓存更新支持"></a>附:binlog-kafka动态缓存更新支持</h2><blockquote>
 <p>@BinlogListener</p>
 </blockquote>
@@ -706,19 +708,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">版本控制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
