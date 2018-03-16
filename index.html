@@ -175,6 +175,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-eventbus-archtech-0316" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/10/eventbus-archtech-0316/">领域事件及事件总线EventBus使用实践</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/10/eventbus-archtech-0316/" class="archive-article-date">
+  	<time datetime="2018-03-10T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏。<br><img src="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大鹏鸟"></p>
+<blockquote>
+<p>事件总线(EventBus)设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型。我们把产生事件的部分称之为事件的发送者(Publisher)，消费事件的部分称之为订阅者(Subcriber)。</p>
+</blockquote>
+<h1 id="DDD领域事件架构简析"><a href="#DDD领域事件架构简析" class="headerlink" title="DDD领域事件架构简析"></a>DDD领域事件架构简析</h1><p>领域事件是领域驱动设计(Domain Driven Design，简称DDD)中的一个概念，领域模型的变化会产生领域事件，事件的产生往往伴随着相应的动作。例如，用户在完成注册后，系统会发出一封带有确认信息的邮件到用户的邮箱。有了领域事件，每个领域本身就只需要关系其自己的业务逻辑，并在处理完自身逻辑的同时抛出相应的领域事件。对这些领域事件感兴趣的业务方可以订阅该事件，然后进行后续的处理。</p>
+        
+          <a class="article-more-a" href="/2018/03/10/eventbus-archtech-0316/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">领域驱动设计</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">领域事件</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">eventbus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">dapeng</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/10/eventbus-archtech-0316/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-DDD-event-bus" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -247,119 +343,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/03/10/DDD-event-bus/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-eventbus-archtech-0316" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/10/eventbus-archtech-0316/">领域事件及事件总线EventBus使用实践</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/10/eventbus-archtech-0316/" class="archive-article-date">
-  	<time datetime="2018-03-10T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>DDD-事件总线实现架构原理分析（修订版）</p>
-<p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大鹏鸟"></h2><blockquote>
-<p>事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。</p>
-</blockquote>
-<h2 id="DDD领域事件架构简析"><a href="#DDD领域事件架构简析" class="headerlink" title="DDD领域事件架构简析"></a>DDD领域事件架构简析</h2><ul>
-<li>领域事件是领域驱动设计(Domain Driven Design)中的一个概念，它用来表示领域中发生的事件，目的是捕获我们所建模的领域中所发生过的各类事件，</li>
-<li><p>领域事件忽略不相关的领域活动，明确业务需求，使得业务开发者只关注和跟踪有业务需要的事件或希望被通知的事件。</p>
-</li>
-<li><p>结合领域事件和EventBus，我们来看一下基于Today中台架构的EventBus架构模型：</p>
-</li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/6393906-a0cdb1c3e8040895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="eventbus模型.png"></p>
-<p>领域事件产生，然后会有监听者进行事件监听。在如此众多的事件中，需要一个消息总线对消息进行统一的管理。<br>消息总线的作用有：</p>
-<p> 1.一个大的领域内的各小模块之间的事件的触发和订阅</p>
-<p> 2.跨领域（跨JVM进程）之间的事件订阅</p>
-<p>首先领域内某个方法发布事件，例如<code>registerUser()</code>方法执行成功后，会发布一个用户创建的事件。<br>这时候，我们只需要调用<code>EventBus.fireEvent()</code>方法，就会将事件发布出去，在EventBus内部，如果本领域内有订阅者订阅此事件，Eventbus就会匹配消息的类型，然后进行相应事件的逻辑处理，这样就做到了领域内的事件监听和处理。</p>
-<p>在这种情况下，事件的发布和订阅是强一致性的，两者在同一个处理过程中，当出现错误，触发事件方和订阅方的数据会一起回滚。</p>
-<p>不管是领域内事件还是跨领域事件，在EventBus触发事件之后，都会选择将消息持久化到业务数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def fireEvent(event: Any): Unit = &#123;</span><br><span class="line">  // 本地事件分发处理</span><br><span class="line">  dispatchEvent(event)</span><br><span class="line"> //持久化事件</span><br><span class="line">  persistenceEvent(event)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="跨领域事件消息保障"><a href="#跨领域事件消息保障" class="headerlink" title="跨领域事件消息保障"></a>跨领域事件消息保障</h2><p>跨领域消息需要通过消息中间件(MQ)来进行传递，这样做的目的就是解除系统间的强依赖性，解耦业务模块。</p>
-<p>我们的事件总线发布的跨领域（系统）消息，是通过kafka这款消息中间件来进行存储转发的。因为每一条事件消息对业务系统都十分重要，我们要确保发送消息不可丢，并最终能够被订阅者订阅到。</p>
-        
-          <a class="article-more-a" href="/2018/03/10/eventbus-archtech-0316/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">领域驱动设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">领域事件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">eventbus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">dapeng</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/10/eventbus-archtech-0316/">展开全文 >></a>
         </p>
       
 
@@ -1079,15 +1062,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
