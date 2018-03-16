@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6393906-a0cdb1c3e8040895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-16T09:35:33.680Z">
+<meta property="og:updated_time" content="2018-03-16T09:37:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域事件及事件总线EventBus使用实践">
 <meta name="twitter:description" content="DDD-事件总线实现架构原理分析（修订版） @大鹏开源:别看我有点萌，我可以秒变大鹏   事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。  DDD领域事件架构简析 领域事件是领域驱动设计(Domain  Driven  Design)中的一个">
@@ -198,8 +198,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>DDD-事件总线实现架构原理分析（修订版）</p>
-<p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大鹏鸟"></h2><blockquote>
+<p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏<br><img src="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大鹏鸟"></p>
+<blockquote>
 <p> 事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。</p>
 </blockquote>
 <h2 id="DDD领域事件架构简析"><a href="#DDD领域事件架构简析" class="headerlink" title="DDD领域事件架构简析"></a>DDD领域事件架构简析</h2><ul>
@@ -396,18 +396,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/10/DDD-event-bus/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          领域事件及事件总线EventBus使用实践
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/06/scala-function-5w/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【scala】函数的演变过程,函数式的优点</div>
+    <a href="/2018/03/10/DDD-event-bus/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">领域事件及事件总线EventBus使用实践</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -434,7 +425,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD领域事件架构简析"><span class="toc-number">2.</span> <span class="toc-text">DDD领域事件架构简析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨领域事件消息保障"><span class="toc-number">3.</span> <span class="toc-text">跨领域事件消息保障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kafka对消息发送的保障"><span class="toc-number">3.1.</span> <span class="toc-text">kafka对消息发送的保障</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Kafka给我们提供了三种语义："><span class="toc-number">3.1.0.1.</span> <span class="toc-text">Kafka给我们提供了三种语义：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者端（Producer）消息保障"><span class="toc-number">3.1.1.</span> <span class="toc-text">生产者端（Producer）消息保障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消费者端（Consumer）消息保障"><span class="toc-number">3.1.2.</span> <span class="toc-text">消费者端（Consumer）消息保障</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EventBus（事件总线）收发消息具体实现"><span class="toc-number">3.2.</span> <span class="toc-text">EventBus（事件总线）收发消息具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EventBus生产端（Producer）"><span class="toc-number">3.2.1.</span> <span class="toc-text">EventBus生产端（Producer）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实现生产者端至少一次"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">实现生产者端至少一次</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#生产者配置："><span class="toc-number">3.2.1.2.</span> <span class="toc-text">生产者配置：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建事务生产者："><span class="toc-number">3.2.1.3.</span> <span class="toc-text">创建事务生产者：</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDD领域事件架构简析"><span class="toc-number">1.</span> <span class="toc-text">DDD领域事件架构简析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨领域事件消息保障"><span class="toc-number">2.</span> <span class="toc-text">跨领域事件消息保障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kafka对消息发送的保障"><span class="toc-number">2.1.</span> <span class="toc-text">kafka对消息发送的保障</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Kafka给我们提供了三种语义："><span class="toc-number">2.1.0.1.</span> <span class="toc-text">Kafka给我们提供了三种语义：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者端（Producer）消息保障"><span class="toc-number">2.1.1.</span> <span class="toc-text">生产者端（Producer）消息保障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消费者端（Consumer）消息保障"><span class="toc-number">2.1.2.</span> <span class="toc-text">消费者端（Consumer）消息保障</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EventBus（事件总线）收发消息具体实现"><span class="toc-number">2.2.</span> <span class="toc-text">EventBus（事件总线）收发消息具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EventBus生产端（Producer）"><span class="toc-number">2.2.1.</span> <span class="toc-text">EventBus生产端（Producer）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实现生产者端至少一次"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">实现生产者端至少一次</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#生产者配置："><span class="toc-number">2.2.1.2.</span> <span class="toc-text">生产者配置：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建事务生产者："><span class="toc-number">2.2.1.3.</span> <span class="toc-text">创建事务生产者：</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
