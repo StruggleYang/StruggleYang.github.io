@@ -7,19 +7,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu-site-verification" content="AT9tqAlfWq" />
   <link rel="dns-prefetch" href="http://git66.com">
-  <title>Tag: dapeng | StruggleYang</title>
+  <title>StruggleYang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="StruggleYang  struy">
+  <meta name="description" content="DDD-事件总线实现架构原理分析（修订版） @大鹏开源:别看我有点萌，我可以秒变大鹏   事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。  DDD领域事件架构简析 领域事件是领域驱动设计(Domain  Driven  Design)中的一个">
 <meta name="keywords" content="“StruggleYang,js,Jquery,springboot,Java,编程,代码,Angular,全栈工程师”">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="StruggleYang">
-<meta property="og:url" content="http://git66.com/tags/dapeng/index.html">
+<meta property="og:url" content="http://git66.com/2018/03/16/eventbus-archtech-0316/index.html">
 <meta property="og:site_name" content="StruggleYang">
-<meta property="og:description" content="StruggleYang  struy">
+<meta property="og:description" content="DDD-事件总线实现架构原理分析（修订版） @大鹏开源:别看我有点萌，我可以秒变大鹏   事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。  DDD领域事件架构简析 领域事件是领域驱动设计(Domain  Driven  Design)中的一个">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6393906-a0cdb1c3e8040895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-16T09:32:52.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StruggleYang">
-<meta name="twitter:description" content="StruggleYang  struy">
+<meta name="twitter:description" content="DDD-事件总线实现架构原理分析（修订版） @大鹏开源:别看我有点萌，我可以秒变大鹏   事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。  DDD领域事件架构简析 领域事件是领域驱动设计(Domain  Driven  Design)中的一个">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="StruggleYang" type="application/atom+xml">
   
@@ -173,76 +177,217 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-eventbus-archtech-0316" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DDD-事件总线实现架构原理分析（修订版）</p>
+<p><a href="https://github.com/dapeng-soa" target="_blank" rel="noopener">@大鹏开源</a>:别看我有点萌，我可以秒变大鹏</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://upload-images.jianshu.io/upload_images/6393906-b7ba572342b3e4ba..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="大鹏鸟"></h2><blockquote>
+<p> 事件总线(EventBus),设计初衷是解耦系统模块，将系统中的各类业务操作抽象为事件模型，我们把产生事件的部分称之为事件的发送者(Publisher),消费事件的部分称之为订阅者(Subcriber)。</p>
+</blockquote>
+<h2 id="DDD领域事件架构简析"><a href="#DDD领域事件架构简析" class="headerlink" title="DDD领域事件架构简析"></a>DDD领域事件架构简析</h2><ul>
+<li>领域事件是领域驱动设计(Domain  Driven  Design)中的一个概念，它用来表示领域中发生的事件，目的是捕获我们所建模的领域中所发生过的各类事件，</li>
+<li><p>领域事件忽略不相关的领域活动，明确业务需求，使得业务开发者只关注和跟踪有业务需要的事件或希望被通知的事件。</p>
+</li>
+<li><p>结合领域事件和EventBus，我们来看一下基于Today中台架构的EventBus架构模型：</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6393906-a0cdb1c3e8040895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="eventbus模型.png"></p>
+<p>领域事件产生，然后会有监听者进行事件监听。在如此众多的事件中，需要一个消息总线对消息进行统一的管理。<br>消息总线的作用有：</p>
+<p>  1.一个大的领域内的各小模块之间的事件的触发和订阅</p>
+<p>  2.跨领域（跨JVM进程）之间的事件订阅</p>
+<p>首先领域内某个方法发布事件，例如<code>registerUser()</code>方法执行成功后，会发布一个用户创建的事件。<br>这时候，我们只需要调用<code>EventBus.fireEvent()</code>方法，就会将事件发布出去，在EventBus内部，如果本领域内有订阅者订阅此事件，Eventbus就会匹配消息的类型，然后进行相应事件的逻辑处理，这样就做到了领域内的事件监听和处理。</p>
+<p>在这种情况下，事件的发布和订阅是强一致性的，两者在同一个处理过程中，当出现错误，触发事件方和订阅方的数据会一起回滚。</p>
+<p>不管是领域内事件还是跨领域事件，在EventBus触发事件之后，都会选择将消息持久化到业务数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def  fireEvent(event:  Any):  Unit  =  &#123;</span><br><span class="line">    //  本地事件分发处理</span><br><span class="line">    dispatchEvent(event)</span><br><span class="line">  //持久化事件</span><br><span class="line">    persistenceEvent(event)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="跨领域事件消息保障"><a href="#跨领域事件消息保障" class="headerlink" title="跨领域事件消息保障"></a>跨领域事件消息保障</h2><p>跨领域消息需要通过消息中间件(MQ)来进行传递，这样做的目的就是解除系统间的强依赖性，解耦业务模块。</p>
+<p>我们的事件总线发布的跨领域（系统）消息，是通过kafka这款消息中间件来进行存储转发的。因为每一条事件消息对业务系统都十分重要，我们要确保发送消息不可丢，并最终能够被订阅者订阅到。</p>
+<h3 id="kafka对消息发送的保障"><a href="#kafka对消息发送的保障" class="headerlink" title="kafka对消息发送的保障"></a>kafka对消息发送的保障</h3><p>Kafka的语义是很直接的，我们有一个概念，当发布一条消息时，该消息给<code>kafka  broker</code>收到后并  <code>committed</code>到了日志，那么在<code>broker</code>看来,  这个消息已经发布成功了,  同时会有一个ack消息返回给生产者。<br></p>
+<p>当网络不可靠时,  我们会碰到这样一种情形：<br>生产者发送消息时，发生网络错误，这时将无法确保错误发生在broker收到消息前还是在收到消息后(返回ack丢失)。</p>
+<h5 id="Kafka给我们提供了三种语义："><a href="#Kafka给我们提供了三种语义：" class="headerlink" title="Kafka给我们提供了三种语义："></a>Kafka给我们提供了三种语义：</h5><ul>
+<li><p>At  most  once    <br><br>最多一次：消息可能丢失，但绝不会重发。</p>
+</li>
+<li><p>At  least  once  <br><br>至少一次：消息绝不会丢失，但有可能重新发送。</p>
+</li>
+</ul>
+<ul>
+<li>Exactly  once    <br><br>正好一次：这是我们真正想要的，每个消息传递一次且仅一次。</li>
+</ul>
+<p>这里我们结合上述三种语义并以发送端（生产者）和接收端（消费者）对消息消费语义的保障分别进行探讨。可分解成两个问题：发送消息时的持久性保障和消费消息的保障。</p>
+<h4 id="生产者端（Producer）消息保障"><a href="#生产者端（Producer）消息保障" class="headerlink" title="生产者端（Producer）消息保障"></a>生产者端（Producer）消息保障</h4><ul>
+<li>最多一次：<br>业务系统创建kafka生产者实例时，配置消息发送重试次数为0，如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">properties.put(retries,  0);</span><br></pre></td></tr></table></figure>
+<p>当消息发送失败时，不会再尝试进行消息发送，这样虽然保证了消息不会重复发送的问题，代价却是有可能会丢失消息，这是系统不能容忍的。</p>
+<ul>
+<li><p>至少一次：<br>创建生产者时，配置重试次数大于等于1，如下配置就是重试2次，如果生产者连续发送消息成功而没有收到ack，就会重试两次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">properties.put(retries,  2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>正好一次</p>
+</li>
+</ul>
+<p>在新版本的kafka特性中，增加了kafka发送消息的幂等性配置和事务消息特性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">properties.put(enable.idempotence,  &quot;true&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>这样kafka在至少一次语义的基础上，同时保证重复发送的消息不会导致日志重复，完美做到了发送端正好一次。</p>
+<p>它的原理就是kafka-broker为每一个生产者分配了一个<code>PID</code>，以便区分不同的生产者实例，当然这个<code>PID</code>对用户不透明，用户无需进行配置。</p>
+<p>开启了消息幂等后，producer在发送每条消息时，都会带上一个序列号(sequnceId)，这样可以在重复发送时根据序列号进行去重。</p>
+<h4 id="消费者端（Consumer）消息保障"><a href="#消费者端（Consumer）消息保障" class="headerlink" title="消费者端（Consumer）消息保障"></a>消费者端（Consumer）消息保障</h4><ul>
+<li>消费者接收到broker的消息后,会提交偏移量到broker上来表示消息消费成功。</li>
+<li>我们将消费者配置为手动提交偏移量，在整个消费消息逻辑处理完成，并没有抛出异常后，手动提交偏移量。</li>
+<li>如果偏移量未成功提交，消息将会再次发送给消费者端，这样就能够保障消息不会丢失。</li>
+</ul>
+<hr>
+<h3 id="EventBus（事件总线）收发消息具体实现"><a href="#EventBus（事件总线）收发消息具体实现" class="headerlink" title="EventBus（事件总线）收发消息具体实现"></a>EventBus（事件总线）收发消息具体实现</h3><h4 id="EventBus生产端（Producer）"><a href="#EventBus生产端（Producer）" class="headerlink" title="EventBus生产端（Producer）"></a>EventBus生产端（Producer）</h4><h5 id="实现生产者端至少一次"><a href="#实现生产者端至少一次" class="headerlink" title="实现生产者端至少一次"></a>实现生产者端至少一次</h5><p>我们也会考虑这样一种情况，当业务系统需要进行批量消息发送时,如果中途某条消息发送失败后，需要之前发送成功的消息一起回滚，类似于数据库上的事务回滚。</p>
+<h5 id="生产者配置："><a href="#生产者配置：" class="headerlink" title="生产者配置："></a>生产者配置：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">properties.put(&quot;transactional.id&quot;,&quot;GOODS_1213&quot;);</span><br><span class="line">properties.put(&quot;enable.idempotence&quot;,  &quot;true&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先kafka对事务消息的支持前提是，需要为每个生产者实例显式的配置唯一的事务id号（如上配置）,</li>
+<li>其次需要将kafka消息幂等功能设置为true</li>
+</ul>
+<p>通过这样的配置之后，消息在批量进行发送时，如果出现异常时，放弃当前事务即可。<br>我们实现的<code>eventbus</code>事务发送端代码如下:</p>
+<h5 id="创建事务生产者："><a href="#创建事务生产者：" class="headerlink" title="创建事务生产者："></a>创建事务生产者：</h5><p>```<br>加载更多</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一开始我们都以为别人是对的。<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/26803775.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/14774360.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+        <div class="signature" style="padding: 15px 20px;margin-top: 10px;border-left: 5px solid #657b83;background: #f6f6f6;">
+        本文作者：StruggleYang</br>
+        原文链接：http://git66.com/2018/03/16/eventbus-archtech-0316/</br>
+        版权归作者所有，转载请注明出处
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/10/DDD-event-bus/" class="archive-article-date">
-  	<time datetime="2018-03-10T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/10/DDD-event-bus/">领域事件及事件总线EventBus使用实践</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">领域驱动设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">领域事件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">eventbus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">dapeng</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://git66.com/2018/03/16/eventbus-archtech-0316/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/03/10/DDD-event-bus/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">领域事件及事件总线EventBus使用实践</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -272,9 +417,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
