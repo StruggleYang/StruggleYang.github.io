@@ -7,19 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu-site-verification" content="AT9tqAlfWq" />
   <link rel="dns-prefetch" href="http://git66.com">
-  <title>Archives: 2018/3 | StruggleYang</title>
+  <title>influxdb常用操作 | StruggleYang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="StruggleYang  struy">
-<meta name="keywords" content="“StruggleYang,js,Jquery,springboot,Java,编程,代码,Angular,全栈工程师”">
-<meta property="og:type" content="website">
-<meta property="og:title" content="StruggleYang">
-<meta property="og:url" content="http://git66.com/archives/2018/03/index.html">
+  <meta name="description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
+<meta name="keywords" content="influxdb,时序数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="influxdb常用操作">
+<meta property="og:url" content="http://git66.com/2018/04/30/influxdb-commons-action/index.html">
 <meta property="og:site_name" content="StruggleYang">
-<meta property="og:description" content="StruggleYang  struy">
+<meta property="og:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-30T03:40:25.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="StruggleYang">
-<meta name="twitter:description" content="StruggleYang  struy">
+<meta name="twitter:title" content="influxdb常用操作">
+<meta name="twitter:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
   
     <link rel="alternative" href="/atom.xml" title="StruggleYang" type="application/atom+xml">
   
@@ -173,130 +174,271 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-influxdb-commons-action" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/16/eventbus-archtech-0316/" class="archive-article-date">
-  	<time datetime="2018-03-16T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/16/eventbus-archtech-0316/">事件总线EventBus实现架构原理分析</a>
+    <h1 class="article-title" itemprop="name">
+      influxdb常用操作
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/30/influxdb-commons-action/" class="archive-article-date">
+  	<time datetime="2018-04-30T03:32:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="哪些情况下用tag"><a href="#哪些情况下用tag" class="headerlink" title="哪些情况下用tag"></a>哪些情况下用tag</h3><p>一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。</p>
+<ul>
+<li>把你经常查询的字段作为tag</li>
+<li>如果你要对其使用GROUP BY()，也要放在tag中</li>
+<li>如果你要对其使用InfluxQL函数，则将其放到field中</li>
+<li>如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串</li>
+</ul>
+<h3 id="终端操作数据库"><a href="#终端操作数据库" class="headerlink" title="终端操作数据库"></a>终端操作数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">查看所有数据库</span><br><span class="line">show databases;</span><br><span class="line"></span><br><span class="line">// 添加数据库</span><br><span class="line">create database [database]</span><br><span class="line"></span><br><span class="line">// 删除数据库</span><br><span class="line">drop datebase [databese]</span><br><span class="line"></span><br><span class="line">// 指定数据库</span><br><span class="line">use [database]</span><br><span class="line"></span><br><span class="line">// 查看指定数据库下所有measurement</span><br><span class="line">show measurements</span><br><span class="line"></span><br><span class="line">// 删除measurement</span><br><span class="line">drop measurement [measurement]</span><br><span class="line"></span><br><span class="line">// 用drop从索引中删除series</span><br><span class="line">drop series from &lt;measurement_name[,measurement_name]&gt; where &lt;tag_key&gt;=&apos;&lt;tag_value&gt;&apos;</span><br><span class="line"></span><br><span class="line">// 从单个measurement删除所有series：</span><br><span class="line">drop series from &quot;h2o_feet&quot;</span><br><span class="line"></span><br><span class="line">//从单个measurement删除指定tag的series：</span><br><span class="line">drop series from &quot;h2o_feet&quot; where &quot;location&quot; = &apos;santa_monica&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">从数据库删除有指定tag的所有measurement中的所有数据：</span><br><span class="line">drop series where &quot;location&quot; = &apos;santa_monica&apos;</span><br><span class="line"></span><br><span class="line">//用delete删除series</span><br><span class="line">delete from &lt;measurement_name&gt; where [&lt;tag_key&gt;=&apos;&lt;tag_value&gt;&apos;] | [&lt;time interval&gt;]</span><br><span class="line"></span><br><span class="line">//删除measurementh2o_feet的所有相关数据：</span><br><span class="line">delete from &quot;h2o_feet&quot;</span><br><span class="line"></span><br><span class="line">// 删除measurementh2o_quality并且tagrandtag等于3的所有数据：</span><br><span class="line">delete from &quot;h2o_quality&quot; where &quot;randtag&quot; = &apos;3&apos;</span><br><span class="line"></span><br><span class="line">// 删除数据库中2016年一月一号之前的所有数据：</span><br><span class="line">delete where time &lt; &apos;2016-01-01&apos;</span><br></pre></td></tr></table></figure>
+<p>终端插入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">格式：</span><br><span class="line"></span><br><span class="line">&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">insert cpu,host=servera,region=us_west value=0.64</span><br><span class="line"></span><br><span class="line">insert temperature,machine=unit42,type=assembly external=25,internal=37</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据写入-网络通讯"><a href="#数据写入-网络通讯" class="headerlink" title="数据写入(网络通讯)"></a>数据写入(网络通讯)</h3><ul>
+<li>使用http接口创建/删除数据库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -i -xpost http://localhost:8086/query --data-urlencode &quot;q=create database dapengstate&quot;</span><br><span class="line"></span><br><span class="line">curl -i -xpost http://localhost:8086/query --data-urlencode &quot;q=drop database dapengstate&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用http接口写数据</li>
+</ul>
+<blockquote>
+<p>通过http接口post数据到/write路径是我们往influxdb写数据的主要方式。下面的例子写了一条数据到mydb数据库。这条数据的组成部分是measurement为cpu_load_short，tag的key为host和region，对应tag的value是server01和us-west，field的key是value，对应的数值为0.64，而时间戳是1434055562000000000</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -xpost &apos;http://localhost:8086/write?db=dapengstate&apos; --data-binary &apos;cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>写入多个点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -i -xpost &apos;http://localhost:8086/write?db=mydb&apos; --data-binary &apos;cpu_load_short,host=server02 value=0.67</span><br><span class="line">cpu_load_short,host=server02,region=us-west value=0.55 1422568543702900257</span><br><span class="line">cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702900257&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过文件写入数据<blockquote>
+<p>可以通过curl的@filename来写入文件中的数据，且这个文件里的数据的格式需要满足influxdb那种行的语法。</p>
+</blockquote>
+</li>
+</ul>
+<p><code>cup_data.txt</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cpu_load_short,host=server02 value=0.67</span><br><span class="line">cpu_load_short,host=server02,region=us-west value=0.55 1422568543702900257</span><br><span class="line">cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702900257</span><br></pre></td></tr></table></figure></p>
+<p>写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -xpost &apos;http://localhost:8086/write?db=mydb&apos; --data-binary @cpu_data.txt</span><br></pre></td></tr></table></figure>
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -g &apos;http://localhost:8086/query?pretty=true&apos; --data-urlencode &quot;db=mydb&quot; --data-urlencode &quot;q=select \&quot;value\&quot; from \&quot;cpu_load_short\&quot; where \&quot;region\&quot;=&apos;us-west&apos;&quot;</span><br></pre></td></tr></table></figure>
+<p>返回值(json)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;results&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;statement_id&quot;: 0,</span><br><span class="line">            &quot;series&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;name&quot;: &quot;cpu_load_short&quot;,</span><br><span class="line">                    &quot;columns&quot;: [</span><br><span class="line">                        &quot;time&quot;,</span><br><span class="line">                        &quot;value&quot;</span><br><span class="line">                    ],</span><br><span class="line">                    &quot;values&quot;: [</span><br><span class="line">                        [</span><br><span class="line">                            &quot;2015-06-11t20:46:02z&quot;,</span><br><span class="line">                            0.64</span><br><span class="line">                        ]</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>pretty=ture参数在url里面，是为了让返回的json格式化。这在调试或者是直接用curl的时候很有用，但在生产上不建议使用，因为这样会消耗不必要的网络带宽。</p>
+</li>
+<li><p>多个查询</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -g &apos;http://localhost:8086/query?pretty=true&apos; --data-urlencode &quot;db=mydb&quot; --data-urlencode &quot;q=select \&quot;value\&quot; from \&quot;cpu_load_short\&quot; where \&quot;region\&quot;=&apos;us-west&apos;;select count(\&quot;value\&quot;) from \&quot;cpu_load_short\&quot; where \&quot;region\&quot;=&apos;us-west&apos;&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="数据采样-数据保留策略"><a href="#数据采样-数据保留策略" class="headerlink" title="数据采样/数据保留策略"></a>数据采样/数据保留策略</h3><p>需求：</p>
+<ul>
+<li>自动将十秒间隔数据聚合到30分钟的间隔数据</li>
+<li>自动删除两个小时以上的原始10秒间隔数据</li>
+<li><p>自动删除超过52周的30分钟间隔数据<br>如果我们写数据的时候没有指定rp的话，influxdb会使用默认的rp</p>
+</li>
+<li><p>创建一个保留两小时的数据的rp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create retention policy &quot;two_hours&quot; on &quot;food_data&quot; duration 2h replication 1 default</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>创建数据库时，influxdb会自动生成一个叫做autogen的rp，并作为数据库的默认rp，autogen这个rp会永远保留数据。在输入上面的命令之后，two_hours会取代autogen作为food_data的默认rp。</p>
+</blockquote>
+<ul>
+<li>创建一个保留52周数据的RP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create retention policy &quot;a_year&quot; on &quot;food_data&quot; duration 52w replication 1</span><br></pre></td></tr></table></figure>
+<h3 id="创建CQ-Continuous-Query-连续查询"><a href="#创建CQ-Continuous-Query-连续查询" class="headerlink" title="创建CQ(Continuous Query/连续查询)"></a>创建CQ(Continuous Query/连续查询)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create continuous query &quot;cq_30m&quot; on &quot;food_data&quot; begin</span><br><span class="line">  select mean(&quot;website&quot;) as &quot;mean_website&quot;,mean(&quot;phone&quot;) as &quot;mean_phone&quot;</span><br><span class="line">  into &quot;a_year&quot;.&quot;downsampled_orders&quot;</span><br><span class="line">  from &quot;orders&quot;</span><br><span class="line">  group by time(30m)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意到我们在into语句中使用了”<retention_policy>“.”<measurement>“这样的语句，当要写入到非默认的rp时，就需要这样的写法。</measurement></retention_policy></p>
+<p>上面创建了一个叫做cq_30m的cq作用于food_data数据库上。cq_30m告诉influxdb每30分钟计算一次measurement为orders并使用默认rptow_hours的字段website和phone的平均值，然后把结果写入到rp为a_year，两个字段分别是mean_website和mean_phone的measurement名为downsampled_orders的数据中。influxdb会每隔30分钟跑对之前30分钟的数据跑一次这个查询。</p>
+</blockquote>
+<ul>
+<li>创建数据库时指定保留策略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database &quot;noaa_water_database&quot; with duration 3d replication 1 shard duration 1h name &quot;liquid&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该语句创建了一个叫做noaa_water_database的数据库，并且创建了liquid作为数据库的默认保留策略，其持续时间为3天，副本数是1，shard group的持续时间为一个小时。</p>
+</blockquote>
+<ul>
+<li>修改保留策略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter retention policy &lt;retention_policy_name&gt; on &lt;database_name&gt; duration &lt;duration&gt; replication &lt;n&gt; shard duration &lt;duration&gt; default</span><br></pre></td></tr></table></figure>
+<p>创建保留策略what_is_time其持续时间为两天</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create retention policy &quot;what_is_time&quot; on &quot;noaa_water_database&quot; duration 2d replication 1</span><br></pre></td></tr></table></figure>
+<p>修改what_is_time的持续时间为3个星期，shard group的持续时间为30分钟，并将其作为数据库noaa_water_database的默认保留策略：+</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter retention policy &quot;what_is_time&quot; on &quot;noaa_water_database&quot; duration 3w shard duration 30m default</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除保留策略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop retention policy &lt;retention_policy_name&gt; on &lt;database_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="如何查看InfluxDB的版本"><a href="#如何查看InfluxDB的版本" class="headerlink" title="如何查看InfluxDB的版本"></a>如何查看InfluxDB的版本</h3><p>终端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd version</span><br></pre></td></tr></table></figure>
+<p>curl：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i &apos;http://localhost:8086/ping&apos;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一开始我们都以为别人是对的。<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/26803775.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oqr3htxnb.bkt.clouddn.com/17-9-2/14774360.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+        <div class="signature" style="padding: 15px 20px;margin-top: 10px;border-left: 5px solid #657b83;background: #f6f6f6;">
+        本文作者：StruggleYang</br>
+        原文链接：http://git66.com/2018/04/30/influxdb-commons-action/</br>
+        版权归作者所有，转载请注明出处
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDD</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">influxdb</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">领域驱动设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">领域事件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">eventbus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">dapeng</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">时序数据库</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://git66.com/2018/04/30/influxdb-commons-action/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/10/DDD-event-bus/" class="archive-article-date">
-  	<time datetime="2018-03-10T15:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/16/eventbus-archtech-0316/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">事件总线EventBus实现架构原理分析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/10/DDD-event-bus/">领域事件及事件总线EventBus使用实践</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">领域驱动设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">领域事件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">eventbus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">dapeng</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -326,8 +468,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
