@@ -9,18 +9,18 @@
   <link rel="dns-prefetch" href="http://git66.com">
   <title>influxdb常用操作 | StruggleYang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
+  <meta name="description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串">
 <meta name="keywords" content="influxdb,时序数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="influxdb常用操作">
 <meta property="og:url" content="http://git66.com/2018/04/30/influxdb-commons-action/index.html">
 <meta property="og:site_name" content="StruggleYang">
-<meta property="og:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
+<meta property="og:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-30T03:40:25.309Z">
+<meta property="og:updated_time" content="2018-04-30T03:42:05.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="influxdb常用操作">
-<meta name="twitter:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串  终端操作数据库12345678910111213141516171">
+<meta name="twitter:description" content="哪些情况下用tag一般来说，你的查询可以指引你哪些数据放在tag中，哪些放在field中。  把你经常查询的字段作为tag 如果你要对其使用GROUP BY()，也要放在tag中 如果你要对其使用InfluxQL函数，则将其放到field中 如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串">
   
     <link rel="alternative" href="/atom.xml" title="StruggleYang" type="application/atom+xml">
   
@@ -201,6 +201,7 @@
 <li>如果你要对其使用InfluxQL函数，则将其放到field中</li>
 <li>如果你需要存储的值不是字符串，则需要放到field中，因为tag value只能是字符串</li>
 </ul>
+<a id="more"></a>
 <h3 id="终端操作数据库"><a href="#终端操作数据库" class="headerlink" title="终端操作数据库"></a>终端操作数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">查看所有数据库</span><br><span class="line">show databases;</span><br><span class="line"></span><br><span class="line">// 添加数据库</span><br><span class="line">create database [database]</span><br><span class="line"></span><br><span class="line">// 删除数据库</span><br><span class="line">drop datebase [databese]</span><br><span class="line"></span><br><span class="line">// 指定数据库</span><br><span class="line">use [database]</span><br><span class="line"></span><br><span class="line">// 查看指定数据库下所有measurement</span><br><span class="line">show measurements</span><br><span class="line"></span><br><span class="line">// 删除measurement</span><br><span class="line">drop measurement [measurement]</span><br><span class="line"></span><br><span class="line">// 用drop从索引中删除series</span><br><span class="line">drop series from &lt;measurement_name[,measurement_name]&gt; where &lt;tag_key&gt;=&apos;&lt;tag_value&gt;&apos;</span><br><span class="line"></span><br><span class="line">// 从单个measurement删除所有series：</span><br><span class="line">drop series from &quot;h2o_feet&quot;</span><br><span class="line"></span><br><span class="line">//从单个measurement删除指定tag的series：</span><br><span class="line">drop series from &quot;h2o_feet&quot; where &quot;location&quot; = &apos;santa_monica&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">从数据库删除有指定tag的所有measurement中的所有数据：</span><br><span class="line">drop series where &quot;location&quot; = &apos;santa_monica&apos;</span><br><span class="line"></span><br><span class="line">//用delete删除series</span><br><span class="line">delete from &lt;measurement_name&gt; where [&lt;tag_key&gt;=&apos;&lt;tag_value&gt;&apos;] | [&lt;time interval&gt;]</span><br><span class="line"></span><br><span class="line">//删除measurementh2o_feet的所有相关数据：</span><br><span class="line">delete from &quot;h2o_feet&quot;</span><br><span class="line"></span><br><span class="line">// 删除measurementh2o_quality并且tagrandtag等于3的所有数据：</span><br><span class="line">delete from &quot;h2o_quality&quot; where &quot;randtag&quot; = &apos;3&apos;</span><br><span class="line"></span><br><span class="line">// 删除数据库中2016年一月一号之前的所有数据：</span><br><span class="line">delete where time &lt; &apos;2016-01-01&apos;</span><br></pre></td></tr></table></figure>
 <p>终端插入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">格式：</span><br><span class="line"></span><br><span class="line">&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">insert cpu,host=servera,region=us_west value=0.64</span><br><span class="line"></span><br><span class="line">insert temperature,machine=unit42,type=assembly external=25,internal=37</span><br></pre></td></tr></table></figure></p>
 <h3 id="数据写入-网络通讯"><a href="#数据写入-网络通讯" class="headerlink" title="数据写入(网络通讯)"></a>数据写入(网络通讯)</h3><ul>
@@ -582,14 +583,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">influxdb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">时序数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -602,15 +595,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">influxdb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">时序数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,6 +612,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">函数式编程</a>
               </li>
             
             <div class="clearfix"></div>
