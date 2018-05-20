@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>StruggleYang</title>
+  <title>struy</title>
   
   <subtitle>秋天该很好，你若尚在场！</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://git66.com/</id>
   
   <author>
-    <name>StruggleYang</name>
+    <name>struy</name>
     
   </author>
   
