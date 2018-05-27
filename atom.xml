@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://git66.com/"/>
-  <updated>2018-04-30T03:42:05.442Z</updated>
+  <updated>2018-05-27T16:39:34.772Z</updated>
   <id>http://git66.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>无问西东</title>
+    <link href="http://git66.com/2018/05/28/wu-wen-xi-dong/"/>
+    <id>http://git66.com/2018/05/28/wu-wen-xi-dong/</id>
+    <published>2018-05-27T16:39:41.000Z</published>
+    <updated>2018-05-27T16:39:34.772Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>他们的爱与风华，只问自由，只问盛放，只问深情，只问初心，只问勇敢，无问西东。</p></blockquote><ul><li>把自己交给繁忙，得到的是踏实，却不是真实</li></ul><p><img src="http://oqr3htxnb.bkt.clouddn.com/18-5-28/20859131.jpg" alt="无问西东"></p><ul><li>看到的和听到的，经常会令你们沮丧，世俗这样强大，强大到生不出改变它们的念头。可是无论外界的社会如何跌宕起伏，都对自己真诚，坚守原则。内心没有了杂念和疑问，才能勇往直前 <a id="more"></a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;他们的爱与风华，只问自由，只问盛放，只问深情，只问初心，只问勇敢，无问西东。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;把自己交给繁忙，得到的是踏实，却不是真实&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://oqr3htxnb.bkt.clouddn.com/18-5-28/20859131.jpg&quot; alt=&quot;无问西东&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;看到的和听到的，经常会令你们沮丧，世俗这样强大，强大到生不出改变它们的念头。可是无论外界的社会如何跌宕起伏，都对自己真诚，坚守原则。内心没有了杂念和疑问，才能勇往直前
+    
+    </summary>
+    
+    
+      <category term="记录" scheme="http://git66.com/tags/%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="随笔" scheme="http://git66.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="电影" scheme="http://git66.com/tags/%E7%94%B5%E5%BD%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>白话tscompose</title>
+    <link href="http://git66.com/2018/05/28/tscompose-bai-hua/"/>
+    <id>http://git66.com/2018/05/28/tscompose-bai-hua/</id>
+    <published>2018-05-27T16:36:57.000Z</published>
+    <updated>2018-05-27T16:39:15.167Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="白话tscompose"><a href="#白话tscompose" class="headerlink" title="白话tscompose"></a>白话tscompose</h3><p>需要说明几点:<br>1.tscompose基于docker-compose进行进一步定制,使其能完成dapeng的服务开发=&gt;构建=&gt;发布=&gt;启动整套流程<br>2.scompose的每个命令可以看作是一组命令的集合,只是简化了操作,做了部分逻辑优化<br>3.tscompose在使用前需要设置两个环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nodeName=sandbox           nodeName,从字面来理解是节点名称,这个名称是至关重要的,下面的多项配置都会使用到此环境变量</span><br><span class="line">COMPOSE_WORKSPACE=/data/workspace/      COMPOSE_WORKSPACE的指定了在tscompose使用时(特别是在测试阶段需要频繁构建)，服务源代码存储的位置</span><br></pre></td></tr></table></figure></p><p>ts目录结构树：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">➜  tscompose git:(master) ✗ tree .</span><br><span class="line">├── .envs    此目录下都是环境变量</span><br><span class="line">│   ├── application.env    一般情况下服务的所有数据库连接信息都在本文件内(文件内容可由 initEnvs/develop.env初始化)</span><br><span class="line">│   └── common.env         针对服务的一些通用配置参数，通常是很少变动的配置(如通用的环境变量,文件内容可由initEnvs/common.env初始化)</span><br><span class="line">├── .gitignore</span><br><span class="line">├── .local-sandbox.ini     需要手动建立,文件内容为当前节点ip地址(host_ip=xxxx),建立规则为[.local-&#123;nodeName&#125;.ini],其中&#123;nodeName&#125;就是环境变量中的nodeName的值</span><br><span class="line">├── .local.gitid.ini       记录服务源代码的最后一次commit对应的id前7位(由./scompose s-update-gid更新此文件)</span><br><span class="line">├── .local.ini             文件内容可由initEnvs/develop.ini 或者 production.ini 初始化</span><br><span class="line">├── .version.ini           记录升级内容</span><br><span class="line">├── README.md</span><br><span class="line">├── dc-all.yml             所有的服务(容器)配置都会在此文件中,具体配置内容下面详解</span><br><span class="line">├── dc-app-2.yml</span><br><span class="line">├── dc-ci.yml</span><br><span class="line">├── dc-demo1.yml</span><br><span class="line">├── dc-local-sandbox.yml</span><br><span class="line">├── dc-monitor.yml</span><br><span class="line">├── dc-pos-demo.yml</span><br><span class="line">├── dc-proxy.yml           文件内容决定了当前节点启动的服务有哪些,文件建立规则dc-&#123;nodename&#125;.yml</span><br><span class="line">├── dc-sandbox1.yml</span><br><span class="line">├── dc-sandbox2.yml</span><br><span class="line">├── dc-sandbox3.yml</span><br><span class="line">├── dc-sandbox4.yml</span><br><span class="line">├── dc-web.yml</span><br><span class="line">├── initEnvs       针对所有的节点，此文件夹内文件可初始化(.envs/application.env &amp;&amp; .envs/common.env &amp;&amp; .local.ini)三个文件</span><br><span class="line">│   ├── common.env         当执行sh prepare.sh develop 或者 production 将copy此文件到.envs/common.env</span><br><span class="line">│   ├── develop.env        当执行sh prepare.sh develop 或者 production 将copy此文件到.envs/application.env</span><br><span class="line">│   ├── develop.ini        当执行sh prepare.sh develop 将copy此文件到.local.ini</span><br><span class="line">│   └── production.ini     当执行sh prepare.sh production 将copy此文件到.local.ini</span><br><span class="line">├── prepare.sh             通常用于初始化配置,命令 sh prepare.sh [develop|production|test]</span><br><span class="line">├── scompose               核心脚本,所有基础命令入口，./scompose 可查看命令帮助</span><br><span class="line">└── shell                  一些常用脚本，现未使用</span><br><span class="line">    ├── allApiProjects.log</span><br><span class="line">    ├── cleanImages.sh</span><br><span class="line">    ├── convertFilesToShell.sh</span><br><span class="line">    ├── installAllApiProjects.sh</span><br><span class="line">    ├── pullBaseImage.sh</span><br><span class="line">    ├── rebuildLocalServices.sh</span><br><span class="line">    ├── runUnittest.sh</span><br><span class="line">    └── updatedApi.log</span><br></pre></td></tr></table></figure></p><p>常见使用场景<br>~</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;白话tscompose&quot;&gt;&lt;a href=&quot;#白话tscompose&quot; class=&quot;headerlink&quot; title=&quot;白话tscompose&quot;&gt;&lt;/a&gt;白话tscompose&lt;/h3&gt;&lt;p&gt;需要说明几点:&lt;br&gt;1.tscompose基于docker-com
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>influxdb常用操作</title>
