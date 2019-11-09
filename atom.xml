@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://git66.com/"/>
-  <updated>2019-01-07T10:12:10.774Z</updated>
+  <updated>2019-11-09T10:12:44.405Z</updated>
   <id>http://git66.com/</id>
   
   <author>
@@ -17,28 +17,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>构建与部署中心使用流程</title>
-    <link href="http://git66.com/2019/01/03/build-deploy-server-use2/"/>
-    <id>http://git66.com/2019/01/03/build-deploy-server-use2/</id>
-    <published>2019-01-03T12:09:36.000Z</published>
-    <updated>2019-01-07T10:12:10.774Z</updated>
+    <title>elasticsearch 7.2源码编译</title>
+    <link href="http://git66.com/2019/11/09/es-source-build-config/"/>
+    <id>http://git66.com/2019/11/09/es-source-build-config/</id>
+    <published>2019-11-09T10:11:32.000Z</published>
+    <updated>2019-11-09T10:12:44.405Z</updated>
     
-    <content type="html"><![CDATA[<p>配置部署中心，包含三大模块：<br>1.配置管理：管理线上服务的参数配置(如：超时，路由，限流，负载均衡，以及服务白名单的管理)<br>2.持续集成：完成服务代码打包，服务镜像的构建过程<br>3.发布部署：完成线上服务的环境变量变更，服务挂载文件内容变更，线上服务的发布更新/启动停止，更有发布记录以供查询。</p><a id="more"></a><p>此篇文档着重说明其中第三个模块发布部署的大体流程：<br>使用菜单：</p><p><img src="http://www.struy.top/19-1-4/75541017.jpg" alt=""></p><p>发布部署包含六个子菜单，每个菜单的功能如下：<br>文件管理：管理所有服务容器的配置文件，如:服务网关需要挂载于宿主机的服务白名单文件，可以通过此功能进行配置文件内容，关联某台机器的服务容器进行挂载。<br>服务管理：管理服务基础信息<br>环境管理：管理环境集信息，以及环境集下某个服务的环境变量信息<br>节点管理：管理节点信息（一个节点总是从属于某一个环境集）<br>部署单元：管理部署的服务信息，确定服务最终部署的节点和使用的镜像版本(简而言之就是具体到某个服务容器)<br>上线部署：上线部署数据来自于部署单元进行筛选展示，执行具体的上线升级，重启，停止操作，可以预览服务运行状态和运行的基本信息(如：当前运行的镜像tag号，服务的最后更新时间，是否需要更新等信息)<br>部署记录：记录每一次部署升级操作(包括重启和停止)，可预览本次升级的yml配置文件并做出有效diff对比</p><h2 id="一次完整的上线操作："><a href="#一次完整的上线操作：" class="headerlink" title="一次完整的上线操作："></a>一次完整的上线操作：</h2><p><strong>上线场景</strong>：上线一个新服务至生产某节点，完成发布，验证存在发布记录。<br>已知服务基础信息：存在数据库连接，存在生产环境必须的环境变量配置，存在文件需要挂载至宿主机，需要将服务端口映射至宿主机</p><h3 id="添加新服务："><a href="#添加新服务：" class="headerlink" title="添加新服务："></a>添加新服务：</h3><p>服务管理=&gt;新增（可根据现有服务进行复制）<br><img src="http://www.struy.top/19-1-4/91339380.jpg" alt=""><br>以上添加了一个基础服务，配置了服务信息，服务镜像字段不需要填写tag号，只需填写基础镜像即可。</p><blockquote><p>服务中添加环境变量(ENV)的原则是：服务中不易变动的环境变量</p></blockquote><h3 id="为需要发布的新服务的环境添加公共环境变量配置："><a href="#为需要发布的新服务的环境添加公共环境变量配置：" class="headerlink" title="为需要发布的新服务的环境添加公共环境变量配置："></a>为需要发布的新服务的环境添加公共环境变量配置：</h3><p><img src="http://www.struy.top/19-1-4/32632852.jpg" alt=""></p><blockquote><p>环境集中添加环境变量(ENV)原则为：公共的环境变量，数据库资源配置信息</p></blockquote><p>如果新服务有额外的环境变量需要添加，且环境变量只用于新加服务，对于其他服务完全不会需要这些环境变量，则需要添加SetSubEnv，如下：</p><p><img src="http://www.struy.top/19-1-4/76343258.jpg" alt=""></p><h3 id="添加一个新节点用于部署新服务："><a href="#添加一个新节点用于部署新服务：" class="headerlink" title="添加一个新节点用于部署新服务："></a>添加一个新节点用于部署新服务：</h3><p>节点管理=&gt;新增<br><img src="http://www.struy.top/19-1-4/83933177.jpg" alt=""><br>节点从属某个环境集，所以在添加节点时需要选定所属环境集：<br>是否是外部机器用于区分是否需要部署服务，一般为否<br>节点上的环境变量(ENV)添加原则为：尽量不添加，如果添加，必将与节点关联密切，或因节点而异的环境变量。</p><h3 id="添加一个部署单元："><a href="#添加一个部署单元：" class="headerlink" title="添加一个部署单元："></a>添加一个部署单元：</h3><p>部署单元=&gt;新增<br><img src="http://www.struy.top/19-1-4/1357418.jpg" alt=""><br>一个部署单元确认了一个节点上的一个服务容器。<br>部署单元环境变量添加原则：只要没有特殊情况不需要添加，一旦添加，只会在当前部署单元所在节点生效。</p><h3 id="添加服务外部文件挂载："><a href="#添加服务外部文件挂载：" class="headerlink" title="添加服务外部文件挂载："></a>添加服务外部文件挂载：</h3><p>文件描述了一个或多个容器的VOLUMES信息,当添加一个文件后，都需要与指定的部署单元(容器)进行关联,关联的文件或文件夹最终将作为容器的VOLUMES,点击关联部署单元按钮查看或关联/取消关联部署单元。<br><img src="http://www.struy.top/19-1-4/39969678.jpg" alt=""></p><h3 id="上线升级："><a href="#上线升级：" class="headerlink" title="上线升级："></a>上线升级：</h3><p>至此，所有新加的服务配置都已经完成，以上配置在升级时最终都会综合为一份配置文件进行下发如下：<br><img src="http://www.struy.top/19-1-4/56454488.jpg" alt=""></p><h3 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h3><p><img src="http://www.struy.top/19-1-4/21817040.jpg" alt=""><br>从上面操作可以看到，之前添加的环境变量，文件，都生效于配置文件，确认无误后升级即可启动对应节点上的服务。</p><h3 id="部署记录-回滚"><a href="#部署记录-回滚" class="headerlink" title="部署记录/回滚"></a>部署记录/回滚</h3><p><img src="http://www.struy.top/19-1-4/35837507.jpg" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<p>elasticsearch 7.2源码编译</p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul><li>gradle</li><li>JDK 12</li></ul><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/elastic/elasticsearch.git</span><br></pre></td></tr></table></figure><p>拉取项目下来先不导入到IDEA,如果之前已经导入，删除.idea和elasticsearch.iml</p><h2 id="编译项目"><a href="#编译项目" class="headerlink" title="编译项目"></a>编译项目</h2><blockquote><p>在命令行完成</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd elasticsearch</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译项目打包</span><br><span class="line">./gradlew assemble</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译为idea项目</span><br><span class="line">./gradlew idea</span><br></pre></td></tr></table></figure><p>以上完成后将项目导入到IDEA</p><h2 id="运行server"><a href="#运行server" class="headerlink" title="运行server"></a>运行server</h2><h3 id="在IDEA中配置项目"><a href="#在IDEA中配置项目" class="headerlink" title="在IDEA中配置项目"></a>在IDEA中配置项目</h3><p>IDEA Run-&gt;Edit Configurations</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Main Class: </span><br><span class="line">org.elasticsearch.bootstrap.Elasticsearch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">VM options:</span><br><span class="line">-Des.path.home=/Users/struy/project/github/elasticsearch/distribution/build/run</span><br><span class="line">-Des.path.conf=/Users/struy/project/github/elasticsearch/distribution/build/run/config</span><br><span class="line">-Didea.no.launcher=true</span><br><span class="line">-Dlog4j2.disable.jmx=true</span><br><span class="line">-Xms1g</span><br><span class="line">-Xmx1g</span><br><span class="line"></span><br><span class="line"># /Users/struy/project/github/elasticsearch/distribution/build/run 这个目录可以自定义，但是前提目录必须存在</span><br><span class="line"></span><br><span class="line"># build的 config</span><br><span class="line">cp -R ./distribution/build/outputs/default/  /Users/struy/project/github/elasticsearch/distribution/build/run</span><br><span class="line"></span><br><span class="line">touch  /Users/struy/project/github/elasticsearch/distribution/build/run/elasticsearch.yml</span><br><span class="line"></span><br><span class="line">vi /Users/struy/project/github/elasticsearch/distribution/build/run/elasticsearch.yml</span><br><span class="line"></span><br><span class="line"># 填入</span><br><span class="line">node.name: local-node-1</span><br></pre></td></tr></table></figure><h3 id="可能的错误"><a href="#可能的错误" class="headerlink" title="可能的错误"></a>可能的错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.security.AccessControlException: access denied (&quot;java.lang.RuntimePermission&quot; &quot;createClassLoader&quot;)</span><br><span class="line"></span><br><span class="line"># 在以下文件中</span><br><span class="line">$JAVA_HOME/jre/lib/security/java.policy</span><br><span class="line"></span><br><span class="line"># 新增</span><br><span class="line">permission java.lang.RuntimePermission &quot;createClassLoader&quot;;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;配置部署中心，包含三大模块：&lt;br&gt;1.配置管理：管理线上服务的参数配置(如：超时，路由，限流，负载均衡，以及服务白名单的管理)&lt;br&gt;2.持续集成：完成服务代码打包，服务镜像的构建过程&lt;br&gt;3.发布部署：完成线上服务的环境变量变更，服务挂载文件内容变更，线上服务的发布更新/启动停止，更有发布记录以供查询。&lt;/p&gt;
+      
+      
+        &lt;p&gt;elasticsearch 7.2源码编译&lt;/p&gt;
+&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;gradle&lt;/li&gt;
+&lt;li&gt;JDK 12&lt;/li&gt;
+&lt;/ul&gt;
+&lt;
+      
     
     </summary>
     
-    
-      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
-    
-      <category term="持续集成" scheme="http://git66.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
-    
-      <category term="devOps" scheme="http://git66.com/tags/devOps/"/>
-    
-      <category term="构建中心" scheme="http://git66.com/tags/%E6%9E%84%E5%BB%BA%E4%B8%AD%E5%BF%83/"/>
     
   </entry>
   
@@ -54,6 +54,32 @@
     <summary type="html">
     
       &lt;p&gt;构建与部署，是日常开发过程中很频繁也很关键的步骤，本文将介绍dapeng部署构建中心两大模块的核心概念和操作流程。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
+    
+      <category term="持续集成" scheme="http://git66.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="devOps" scheme="http://git66.com/tags/devOps/"/>
+    
+      <category term="构建中心" scheme="http://git66.com/tags/%E6%9E%84%E5%BB%BA%E4%B8%AD%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>构建与部署中心使用流程</title>
+    <link href="http://git66.com/2019/01/03/build-deploy-server-use2/"/>
+    <id>http://git66.com/2019/01/03/build-deploy-server-use2/</id>
+    <published>2019-01-03T12:09:36.000Z</published>
+    <updated>2019-01-07T10:12:10.774Z</updated>
+    
+    <content type="html"><![CDATA[<p>配置部署中心，包含三大模块：<br>1.配置管理：管理线上服务的参数配置(如：超时，路由，限流，负载均衡，以及服务白名单的管理)<br>2.持续集成：完成服务代码打包，服务镜像的构建过程<br>3.发布部署：完成线上服务的环境变量变更，服务挂载文件内容变更，线上服务的发布更新/启动停止，更有发布记录以供查询。</p><a id="more"></a><p>此篇文档着重说明其中第三个模块发布部署的大体流程：<br>使用菜单：</p><p><img src="http://www.struy.top/19-1-4/75541017.jpg" alt=""></p><p>发布部署包含六个子菜单，每个菜单的功能如下：<br>文件管理：管理所有服务容器的配置文件，如:服务网关需要挂载于宿主机的服务白名单文件，可以通过此功能进行配置文件内容，关联某台机器的服务容器进行挂载。<br>服务管理：管理服务基础信息<br>环境管理：管理环境集信息，以及环境集下某个服务的环境变量信息<br>节点管理：管理节点信息（一个节点总是从属于某一个环境集）<br>部署单元：管理部署的服务信息，确定服务最终部署的节点和使用的镜像版本(简而言之就是具体到某个服务容器)<br>上线部署：上线部署数据来自于部署单元进行筛选展示，执行具体的上线升级，重启，停止操作，可以预览服务运行状态和运行的基本信息(如：当前运行的镜像tag号，服务的最后更新时间，是否需要更新等信息)<br>部署记录：记录每一次部署升级操作(包括重启和停止)，可预览本次升级的yml配置文件并做出有效diff对比</p><h2 id="一次完整的上线操作："><a href="#一次完整的上线操作：" class="headerlink" title="一次完整的上线操作："></a>一次完整的上线操作：</h2><p><strong>上线场景</strong>：上线一个新服务至生产某节点，完成发布，验证存在发布记录。<br>已知服务基础信息：存在数据库连接，存在生产环境必须的环境变量配置，存在文件需要挂载至宿主机，需要将服务端口映射至宿主机</p><h3 id="添加新服务："><a href="#添加新服务：" class="headerlink" title="添加新服务："></a>添加新服务：</h3><p>服务管理=&gt;新增（可根据现有服务进行复制）<br><img src="http://www.struy.top/19-1-4/91339380.jpg" alt=""><br>以上添加了一个基础服务，配置了服务信息，服务镜像字段不需要填写tag号，只需填写基础镜像即可。</p><blockquote><p>服务中添加环境变量(ENV)的原则是：服务中不易变动的环境变量</p></blockquote><h3 id="为需要发布的新服务的环境添加公共环境变量配置："><a href="#为需要发布的新服务的环境添加公共环境变量配置：" class="headerlink" title="为需要发布的新服务的环境添加公共环境变量配置："></a>为需要发布的新服务的环境添加公共环境变量配置：</h3><p><img src="http://www.struy.top/19-1-4/32632852.jpg" alt=""></p><blockquote><p>环境集中添加环境变量(ENV)原则为：公共的环境变量，数据库资源配置信息</p></blockquote><p>如果新服务有额外的环境变量需要添加，且环境变量只用于新加服务，对于其他服务完全不会需要这些环境变量，则需要添加SetSubEnv，如下：</p><p><img src="http://www.struy.top/19-1-4/76343258.jpg" alt=""></p><h3 id="添加一个新节点用于部署新服务："><a href="#添加一个新节点用于部署新服务：" class="headerlink" title="添加一个新节点用于部署新服务："></a>添加一个新节点用于部署新服务：</h3><p>节点管理=&gt;新增<br><img src="http://www.struy.top/19-1-4/83933177.jpg" alt=""><br>节点从属某个环境集，所以在添加节点时需要选定所属环境集：<br>是否是外部机器用于区分是否需要部署服务，一般为否<br>节点上的环境变量(ENV)添加原则为：尽量不添加，如果添加，必将与节点关联密切，或因节点而异的环境变量。</p><h3 id="添加一个部署单元："><a href="#添加一个部署单元：" class="headerlink" title="添加一个部署单元："></a>添加一个部署单元：</h3><p>部署单元=&gt;新增<br><img src="http://www.struy.top/19-1-4/1357418.jpg" alt=""><br>一个部署单元确认了一个节点上的一个服务容器。<br>部署单元环境变量添加原则：只要没有特殊情况不需要添加，一旦添加，只会在当前部署单元所在节点生效。</p><h3 id="添加服务外部文件挂载："><a href="#添加服务外部文件挂载：" class="headerlink" title="添加服务外部文件挂载："></a>添加服务外部文件挂载：</h3><p>文件描述了一个或多个容器的VOLUMES信息,当添加一个文件后，都需要与指定的部署单元(容器)进行关联,关联的文件或文件夹最终将作为容器的VOLUMES,点击关联部署单元按钮查看或关联/取消关联部署单元。<br><img src="http://www.struy.top/19-1-4/39969678.jpg" alt=""></p><h3 id="上线升级："><a href="#上线升级：" class="headerlink" title="上线升级："></a>上线升级：</h3><p>至此，所有新加的服务配置都已经完成，以上配置在升级时最终都会综合为一份配置文件进行下发如下：<br><img src="http://www.struy.top/19-1-4/56454488.jpg" alt=""></p><h3 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h3><p><img src="http://www.struy.top/19-1-4/21817040.jpg" alt=""><br>从上面操作可以看到，之前添加的环境变量，文件，都生效于配置文件，确认无误后升级即可启动对应节点上的服务。</p><h3 id="部署记录-回滚"><a href="#部署记录-回滚" class="headerlink" title="部署记录/回滚"></a>部署记录/回滚</h3><p><img src="http://www.struy.top/19-1-4/35837507.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;配置部署中心，包含三大模块：&lt;br&gt;1.配置管理：管理线上服务的参数配置(如：超时，路由，限流，负载均衡，以及服务白名单的管理)&lt;br&gt;2.持续集成：完成服务代码打包，服务镜像的构建过程&lt;br&gt;3.发布部署：完成线上服务的环境变量变更，服务挂载文件内容变更，线上服务的发布更新/启动停止，更有发布记录以供查询。&lt;/p&gt;
     
     </summary>
     
@@ -225,8 +251,6 @@
     </summary>
     
     
-      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
-    
       <category term="DDD" scheme="http://git66.com/tags/DDD/"/>
     
       <category term="领域驱动设计" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
@@ -234,6 +258,8 @@
       <category term="领域事件" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6/"/>
     
       <category term="eventbus" scheme="http://git66.com/tags/eventbus/"/>
+    
+      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
     
   </entry>
   
@@ -255,8 +281,6 @@
     </summary>
     
     
-      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
-    
       <category term="DDD" scheme="http://git66.com/tags/DDD/"/>
     
       <category term="领域驱动设计" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
@@ -264,6 +288,8 @@
       <category term="领域事件" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6/"/>
     
       <category term="eventbus" scheme="http://git66.com/tags/eventbus/"/>
+    
+      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
     
   </entry>
   
