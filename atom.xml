@@ -251,6 +251,8 @@
     </summary>
     
     
+      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
+    
       <category term="DDD" scheme="http://git66.com/tags/DDD/"/>
     
       <category term="领域驱动设计" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
@@ -258,8 +260,6 @@
       <category term="领域事件" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6/"/>
     
       <category term="eventbus" scheme="http://git66.com/tags/eventbus/"/>
-    
-      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
     
   </entry>
   
@@ -281,6 +281,8 @@
     </summary>
     
     
+      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
+    
       <category term="DDD" scheme="http://git66.com/tags/DDD/"/>
     
       <category term="领域驱动设计" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
@@ -288,8 +290,6 @@
       <category term="领域事件" scheme="http://git66.com/tags/%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6/"/>
     
       <category term="eventbus" scheme="http://git66.com/tags/eventbus/"/>
-    
-      <category term="dapeng" scheme="http://git66.com/tags/dapeng/"/>
     
   </entry>
   
